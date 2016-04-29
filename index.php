@@ -2,10 +2,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>WebGL Maze Reader</title>
+		<title>Tron Maze 3D</title>
 
 
-		
+
 
 		<style type="text/css">
 			#loadingtext {
@@ -63,7 +63,8 @@
 		}
 		}
 		</script>
-
+		
+		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
 
 		<canvas id="canvas" style="border: none;" width="800" height="800"></canvas>
 		
