@@ -65,7 +65,7 @@
 		</script>
 
 
-		<canvas id="canvas" style="border: none;" width="800" height="800"></canvas>
+		<canvas id="canvas" style="border: none;" width="100%" height="auto"></canvas>
 		
 		<div id="loadingtext"></div>
 		
