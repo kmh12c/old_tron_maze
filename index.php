@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>WebGL Maze Reader</title>
+		<title>TRON MAZE 3D</title>
 
 
 		
@@ -331,8 +331,10 @@
 			}
 
 
-			var worldVertexPositionBuffer = null;
-			var worldVertexTextureCoordBuffer = null;
+			var worldVertexPositionBufferWALL = null;
+			var worldVertexTextureCoordBufferWALL = null;
+			var worldVertexPositionBufferFLOOR = null;
+			var worldVertexTextureCoordBufferFLOOR = null;
 
 			
 			var maze = "";
