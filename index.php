@@ -64,6 +64,8 @@
 		}
 		</script>
 
+		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
+
 		<canvas id="canvas" style="border: none;" width="1000" height="1000"></canvas>
 		
 		<div id="loadingtext"></div>
@@ -86,7 +88,6 @@
 		
 		<script type="text/javascript" src="js/glge-compiled-min.js"></script>
 		<script type="text/javascript" src="js/glge_flycamera.js"></script>
-		<script type="text/javascript" src="js/tree.js"></script> 
 		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.7.custom.min.js"></script>
 		<script type="text/javascript" src="js/export.js"></script>
@@ -1075,18 +1076,18 @@
 				worldVertexTextureCoordBufferFLOOR.itemSize = 2;
 				worldVertexTextureCoordBufferFLOOR.numItems = vertexCountFLOOR;
 
-				//WALL
-				worldVertexPositionBufferWALL = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsWALL), gl.STATIC_DRAW);
-				worldVertexPositionBufferWALL.itemSize = 3;
-				worldVertexPositionBufferWALL.numItems = vertexCountWALL;
+				// //WALL
+				// worldVertexPositionBufferWALL = gl.createBuffer();
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
+				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsWALL), gl.STATIC_DRAW);
+				// worldVertexPositionBufferWALL.itemSize = 3;
+				// worldVertexPositionBufferWALL.numItems = vertexCountWALL;
 
-				worldVertexTextureCoordBufferWALL = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsWALL), gl.STATIC_DRAW);
-				worldVertexTextureCoordBufferWALL.itemSize = 2;
-				worldVertexTextureCoordBufferWALL.numItems = vertexCountWALL;
+				// worldVertexTextureCoordBufferWALL = gl.createBuffer();
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
+				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsWALL), gl.STATIC_DRAW);
+				// worldVertexTextureCoordBufferWALL.itemSize = 2;
+				// worldVertexTextureCoordBufferWALL.numItems = vertexCountWALL;
 
 				document.getElementById("loadingtext").textContent = "";
 			}
@@ -1121,31 +1122,31 @@
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
-				//WALL
-				if (worldVertexTextureCoordBufferWALL == null || worldVertexPositionBufferWALL == null) {
-					return;
-				}
+				// //WALL
+				// if (worldVertexTextureCoordBufferWALL == null || worldVertexPositionBufferWALL == null) {
+				// 	return;
+				// }
 
-				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+				// mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 
-				mat4.identity(mvMatrix);
+				// mat4.identity(mvMatrix);
 
-				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
-				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
-				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
+				// mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
+				// mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
+				// mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
-				gl.activeTexture(gl.TEXTURE1);
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
+				// gl.activeTexture(gl.TEXTURE1);
+				// gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				// gl.uniform1i(shaderProgram.samplerUniform, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
+				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
+				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
 
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferWALL.numItems);
+				// setMatrixUniforms();
+				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferWALL.numItems);
 			}
 			
 			
