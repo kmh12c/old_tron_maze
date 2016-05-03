@@ -66,20 +66,16 @@
 
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
 
+		<br/><br/>
+		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
+
 		<canvas id="canvas" style="border: none;" width="1000" height="1000"></canvas>
 		
 		<div id="loadingtext"></div>
 		
-		<br/><br/>
-		Maze contents:
 		<div id="mazeContents">
 			&nbsp;
 		</div>
-		<br/><br/>
-		
-		<br>
-		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
-		
 
 		<script type="text/javascript" src="js/glMatrix-0.9.5.min.js"></script>
 		<script type="text/javascript" src="js/webgl-utils.js"></script>
@@ -97,11 +93,14 @@
 			precision mediump float;
 
 			varying vec2 vTextureCoord;
+			varying vec2 vTextureCoord2;
 
 			uniform sampler2D uSampler;
+			uniform sampler2D uSampler2;
 
 			void main(void) {
 				gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+				gl_FragColor2 = texture2D(uSampler2, vec2(vTextureCoord2.s, vTextureCoord2.t));
 			}
 		</script>
 
@@ -112,11 +111,13 @@
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 
+
 			varying vec2 vTextureCoord;
 
 			void main(void) {
 				gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 				vTextureCoord = aTextureCoord;
+				vTextureCoord2 = aTextureCoord2;
 			}
 		</script>
 
@@ -208,6 +209,7 @@
 				shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
 				shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
 				shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+				shaderProgram.samplerUniform2 = gl.getUniformLocation(shaderProgram, "uSampler2");
 			}
 
 
@@ -813,7 +815,7 @@
 				
 				gl.activeTexture(gl.TEXTURE1);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
+				gl.uniform1i(shaderProgram.samplerUniform2, 1);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
