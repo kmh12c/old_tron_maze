@@ -66,7 +66,7 @@
 		
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
 
-		<canvas id="canvas" style="border: none;" width="800" height="800"></canvas>
+		<canvas id="canvas" style="border: none;" width="1000" height="1000"></canvas>
 		
 		<div id="loadingtext"></div>
 		
