@@ -812,7 +812,7 @@
 				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
 				gl.activeTexture(gl.TEXTURE1);
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
