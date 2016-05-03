@@ -2,10 +2,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Tron Maze 3D</title>
+		<title>WebGL Maze Reader</title>
 
 
-
+		
 
 		<style type="text/css">
 			#loadingtext {
@@ -63,8 +63,6 @@
 		}
 		}
 		</script>
-		
-		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
 
 		<canvas id="canvas" style="border: none;" width="1000" height="1000"></canvas>
 		
@@ -226,7 +224,8 @@
 			var textureArray = new Array();
 
 			function initTextures() {
-				textureArray["grass01"] = loadTextures("img/grass1.png");
+				textureArray["floor"] = loadTextures("img/floor.png");
+				textureArray["wall"] = loadTextures("img/wall.png");
 			}
 			
 			function loadTextures(texture_location) {
@@ -274,12 +273,14 @@
 			var currentlyPressedKeys = {};
 
 			function handleKeyDown(event) {
+				event.preventDefault();
 				currentlyPressedKeys[event.keyCode] = true;
 				if (event.keyCode==32) jump.isPerforming = true;
 			}
 
 
 			function handleKeyUp(event) {
+				event.preventDefault();
 				currentlyPressedKeys[event.keyCode] = false;
 			}
 
@@ -351,12 +352,15 @@
 				request.send();
 			}
 
-			
+			var textures = [];
+
 			function handleLoadedWorld(data) {
-				var vertexCount = 0;
-				var vertexPositions = [];
-				var vertexTextureCoords = [];
-				
+				var vertexCountFLOOR = 0;
+				var vertexPositionsFLOOR = [];
+				var vertexTextureCoordsFLOOR = [];
+				var vertexCountWALL = 0;
+				var vertexPositionsWALL = [];
+				var vertexTextureCoordsWALL = [];
 				
 
 				for(var i=0; i < maze["r"]; i++) 
@@ -376,55 +380,111 @@
 							{ }
 							else
 							{
-							//============================
-							//
-							//			Triangle 1
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
+								if(maze[i][j]["t"] == "floor.png")
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+
+									vertexCountFLOOR += 3;
+								}
+								else 
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+
+									vertexCountWALL += 3;
+								}
 							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
-							
-							//============================
-							//
-							//			Triangle 2
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
 							}
 						}
 						
@@ -435,55 +495,110 @@
 						//============================
 						if(j==0 && typeof maze[i][j]["l"] === 'undefined')
 						{
-							//============================
-							//
-							//			Triangle 1
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
-							
-							//============================
-							//
-							//			Triangle 2
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
+							if(maze[i][j]["t"] == "floor.png")
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+								}
+								else 
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+								}
 
 						}
 						
@@ -494,55 +609,110 @@
 						//============================
 						if(i==0 && typeof maze[i][j]["l"] === 'undefined') 
 						{
-							//============================
-							//
-							//			Triangle 1
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
-							
-							//============================
-							//
-							//			Triangle 2
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
+							if(maze[i][j]["t"] == "floor.png")
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+								}
+								else 
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+								}
 						}
 
 						
@@ -557,55 +727,110 @@
 							{ }
 							else
 							{
-							//============================
-							//
-							//			Triangle 1
-							//
-							//============================
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
-							
-							//============================
-							//
-							//			Triangle 2
-							//
-							//============================
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
+								if(maze[i][j]["t"] == "floor.png")
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(1)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+									
+									vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+									vertexPositionsFLOOR.push(parseFloat(0)); // Y
+									vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+									vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+									
+									vertexCountFLOOR += 3;
+								}
+								else 
+								{
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+									
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(1)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+									
+									vertexPositionsWALL.push(parseFloat(j+1)); // X
+									vertexPositionsWALL.push(parseFloat(0)); // Y
+									vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+									vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+									vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+									
+									vertexCountWALL += 3;
+								}
 							}
 						}
 
@@ -615,126 +840,251 @@
 						//			Top
 						//
 						//============================
-							//============================
-							//
-							//			Triangle 1
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
-							
-							//============================
-							//
-							//			Triangle 2
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(1)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
 
-
+							if(maze[i][j]["t"] == "floor.png")
+							{
+								//============================
+								//
+								//			Triangle 1
+								//
+								//============================
+								vertexPositionsFLOOR.push(parseFloat(j)); // X
+								vertexPositionsFLOOR.push(parseFloat(1)); // Y
+								vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j)); // X
+								vertexPositionsFLOOR.push(parseFloat(1)); // Y
+								vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+								vertexPositionsFLOOR.push(parseFloat(1)); // Y
+								vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+								
+								vertexCountFLOOR += 3;
+								
+								//============================
+								//
+								//			Triangle 2
+								//
+								//============================
+								vertexPositionsFLOOR.push(parseFloat(j)); // X
+								vertexPositionsFLOOR.push(parseFloat(1)); // Y
+								vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+								vertexPositionsFLOOR.push(parseFloat(1)); // Y
+								vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+								vertexPositionsFLOOR.push(parseFloat(1)); // Y
+								vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+								
+								vertexCountFLOOR += 3;
+							}
+							else 
+							{
+								//============================
+								//
+								//			Triangle 1
+								//
+								//============================
+								vertexPositionsWALL.push(parseFloat(j)); // X
+								vertexPositionsWALL.push(parseFloat(1)); // Y
+								vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j)); // X
+								vertexPositionsWALL.push(parseFloat(1)); // Y
+								vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j+1)); // X
+								vertexPositionsWALL.push(parseFloat(1)); // Y
+								vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+								
+								vertexCountWALL += 3;
+								
+								//============================
+								//
+								//			Triangle 2
+								//
+								//============================
+								vertexPositionsWALL.push(parseFloat(j)); // X
+								vertexPositionsWALL.push(parseFloat(1)); // Y
+								vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j+1)); // X
+								vertexPositionsWALL.push(parseFloat(1)); // Y
+								vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j+1)); // X
+								vertexPositionsWALL.push(parseFloat(1)); // Y
+								vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+								
+								vertexCountWALL += 3;
+							}
 						
 						//============================
 						//
 						//			Bottom
 						//
 						//============================	
-							//============================
-							//
-							//			Triangle 1
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
-							
-							//============================
-							//
-							//			Triangle 2
-							//
-							//============================
-							vertexPositions.push(parseFloat(j)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(0.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat((i*-1)-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(1.0)); // V
-							
-							vertexPositions.push(parseFloat(j+1)); // X
-							vertexPositions.push(parseFloat(0)); // Y
-							vertexPositions.push(parseFloat(i*-1)); // Z
-							vertexTextureCoords.push(parseFloat(1.0)); // U
-							vertexTextureCoords.push(parseFloat(0.0)); // V
-							
-							vertexCount += 3;
+
+
+							if(maze[i][j]["t"] == "floor.png")
+							{
+								//============================
+								//
+								//			Triangle 1
+								//
+								//============================
+								vertexPositionsFLOOR.push(parseFloat(j)); // X
+								vertexPositionsFLOOR.push(parseFloat(0)); // Y
+								vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j)); // X
+								vertexPositionsFLOOR.push(parseFloat(0)); // Y
+								vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+								vertexPositionsFLOOR.push(parseFloat(0)); // Y
+								vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+								
+								vertexCountFLOOR += 3;
+								
+								//============================
+								//
+								//			Triangle 2
+								//
+								//============================
+								vertexPositionsFLOOR.push(parseFloat(j)); // X
+								vertexPositionsFLOOR.push(parseFloat(0)); // Y
+								vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+								vertexPositionsFLOOR.push(parseFloat(0)); // Y
+								vertexPositionsFLOOR.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+								
+								vertexPositionsFLOOR.push(parseFloat(j+1)); // X
+								vertexPositionsFLOOR.push(parseFloat(0)); // Y
+								vertexPositionsFLOOR.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // U
+								vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // V
+								
+								vertexCountFLOOR += 3;
+							}
+							else 
+							{
+								//============================
+								//
+								//			Triangle 1
+								//
+								//============================
+								vertexPositionsWALL.push(parseFloat(j)); // X
+								vertexPositionsWALL.push(parseFloat(0)); // Y
+								vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j)); // X
+								vertexPositionsWALL.push(parseFloat(0)); // Y
+								vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j+1)); // X
+								vertexPositionsWALL.push(parseFloat(0)); // Y
+								vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+								
+								vertexCountWALL += 3;
+								
+								//============================
+								//
+								//			Triangle 2
+								//
+								//============================
+								vertexPositionsWALL.push(parseFloat(j)); // X
+								vertexPositionsWALL.push(parseFloat(0)); // Y
+								vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j+1)); // X
+								vertexPositionsWALL.push(parseFloat(0)); // Y
+								vertexPositionsWALL.push(parseFloat((i*-1)-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // V
+								
+								vertexPositionsWALL.push(parseFloat(j+1)); // X
+								vertexPositionsWALL.push(parseFloat(0)); // Y
+								vertexPositionsWALL.push(parseFloat(i*-1)); // Z
+								vertexTextureCoordsWALL.push(parseFloat(1.0)); // U
+								vertexTextureCoordsWALL.push(parseFloat(0.0)); // V
+								
+								vertexCountWALL += 3;
+							}
 					}
 				}
 
-				worldVertexPositionBuffer = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
-				worldVertexPositionBuffer.itemSize = 3;
-				worldVertexPositionBuffer.numItems = vertexCount;
+				//FLOOR
+				worldVertexPositionBufferFLOOR = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsFLOOR), gl.STATIC_DRAW);
+				worldVertexPositionBufferFLOOR.itemSize = 3;
+				worldVertexPositionBufferFLOOR.numItems = vertexCountFLOOR;
 
-				worldVertexTextureCoordBuffer = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
-				worldVertexTextureCoordBuffer.itemSize = 2;
-				worldVertexTextureCoordBuffer.numItems = vertexCount;
+				worldVertexTextureCoordBufferFLOOR = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsFLOOR), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferFLOOR.itemSize = 2;
+				worldVertexTextureCoordBufferFLOOR.numItems = vertexCountFLOOR;
+
+				//WALL
+				worldVertexPositionBufferWALL = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsWALL), gl.STATIC_DRAW);
+				worldVertexPositionBufferWALL.itemSize = 3;
+				worldVertexPositionBufferWALL.numItems = vertexCountWALL;
+
+				worldVertexTextureCoordBufferWALL = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsWALL), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferWALL.itemSize = 2;
+				worldVertexTextureCoordBufferWALL.numItems = vertexCountWALL;
 
 				document.getElementById("loadingtext").textContent = "";
 			}
@@ -743,7 +1093,8 @@
 				gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
+				//FLOOR
+				if (worldVertexTextureCoordBufferFLOOR == null || worldVertexPositionBufferFLOOR == null) {
 					return;
 				}
 
@@ -756,19 +1107,43 @@
 				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
 				gl.activeTexture(gl.TEXTURE0);
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["grass01"]);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
 
 				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
+				//WALL
+				if (worldVertexTextureCoordBufferWALL == null || worldVertexPositionBufferWALL == null) {
+					return;
+				}
+
+				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+				mat4.identity(mvMatrix);
+
+				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
+				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
+				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
+				gl.activeTexture(gl.TEXTURE1);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
+
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
+
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferWALL.numItems);
 			}
 			
 			
