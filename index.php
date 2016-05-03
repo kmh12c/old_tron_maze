@@ -99,8 +99,8 @@
 			uniform sampler2D uSampler2;
 
 			void main(void) {
-				gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
-				gl_FragColor2 = texture2D(uSampler2, vec2(vTextureCoord2.s, vTextureCoord2.t));
+				vec4 gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+				vec4 gl_FragColor2 = texture2D(uSampler2, vec2(vTextureCoord2.s, vTextureCoord2.t));
 			}
 		</script>
 
