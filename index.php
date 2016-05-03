@@ -332,8 +332,8 @@
 			}
 
 
-			var worldVertexPositionBufferWALL = null;
-			var worldVertexTextureCoordBufferWALL = null;
+			var worldVertexPositionBuffer = null;
+			var worldVertexTextureCoordBuffer = null;
 			var worldVertexPositionBufferFLOOR = null;
 			var worldVertexTextureCoordBufferFLOOR = null;
 
@@ -799,7 +799,7 @@
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
 				//WALL
-				if (worldVertexTextureCoordBufferWALL == null || worldVertexPositionBufferWALL == null) {
+				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
 					return;
 				}
 
@@ -811,18 +811,18 @@
 				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
 				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
-				gl.activeTexture(gl.TEXTURE01);
+				gl.activeTexture(gl.TEXTURE1);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferWALL);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferWALL);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferWALL.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
 				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferWALL.numItems);
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 			}
 			
 			
