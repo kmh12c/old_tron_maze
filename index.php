@@ -16,7 +16,7 @@
 				color: white;
 			}
 			
-			input#un-mute {
+			input#un_mute {
 				display: none;
 			}
 
@@ -24,21 +24,21 @@
 				display: none;
 			}
 
-			input#un-mute:checked ~ .unmute img {
+			input#un_mute:checked ~ .unmute img {
 				display: initial;
 			}
 
-			input#un-mute:checked ~ .mute img {
+			input#un_mute:checked ~ .mute img {
 				display: none;
 			}
 		</style>
 		<script>
 			//http://stackoverflow.com/questions/14356956/playing-audio-after-the-page-loads-in-html
-			window.onload = function() {
-				document.getElementById("western").play();
-			}
+			// window.onload = function() {
+			// 	document.getElementById("western").play();
+			// }
 			
-			var un_mute = document.getElementById('un-mute');
+			var un_mute = document.getElementById('un_mute');
 
 			un_mute.onclick = function() {
 				alert('toggle player here');
@@ -812,7 +812,7 @@
 				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
 				gl.activeTexture(gl.TEXTURE1);
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
@@ -895,11 +895,11 @@
 		</script>
 	
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
-	<input type="checkbox" name="un-mute" id="un-mute" onclick="aud_play_pause()">
-		<label for="un-mute" class="unmute">
+	<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
+		<label for="un_mute" class="unmute">
 			<img src="img/Mute_Icon.png" alt="Mute_Icon.png" title="Mute icon">
 		</label>
-		<label for="un-mute" class="mute">
+		<label for="un_mute" class="mute">
 			<img src="img/Speaker_Icon.png" alt="Speaker_Icon.png" alt="Speaker_Icon.svg" title="Unmute/speaker icon">
 		</label>
 
