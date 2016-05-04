@@ -46,6 +46,7 @@
 				position: absolute;
     			top: 176px;
 				z-index: -1;
+				border: 1px solid white;
 			}
 
 			p {
@@ -96,7 +97,7 @@
 		<p>Use the <b>Cursor Keys</b> to move around and <b>Space Bar</b> to jump. <b><i>Try to find all 5 colored discs.</i></b></p>
 		<br/><br/><br/><br/>
 
-		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
+		<canvas id="canvas" width="1200" height="580" ></canvas>
 		<div id="loadingtext"></div>
 		<div id="mazeContents">
 			&nbsp;
