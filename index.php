@@ -887,7 +887,7 @@
 			
 				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
 				vertexPositionsDISC5.push(parseFloat(0)); // Y
-				vertexPositionsDISC5.push(parseFloat(d5[1]*-.5)); // Z
+				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
 				
