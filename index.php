@@ -59,6 +59,15 @@
 
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
 
+		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
+		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
+			<label for="un_mute" class="unmute">
+				<img src="img/Mute_Icon.png" alt="Mute_Icon.png" title="Mute icon">
+			</label>
+			<label for="un_mute" class="mute">
+				<img src="img/Speaker_Icon.png" alt="Speaker_Icon.png" alt="Speaker_Icon.svg" title="Unmute/speaker icon">
+			</label>
+
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
 
@@ -819,15 +828,6 @@
 
 		
 		</script>
-	
-		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
-	<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
-		<label for="un_mute" class="unmute">
-			<img src="img/Mute_Icon.png" alt="Mute_Icon.png" title="Mute icon">
-		</label>
-		<label for="un_mute" class="mute">
-			<img src="img/Speaker_Icon.png" alt="Speaker_Icon.png" alt="Speaker_Icon.svg" title="Unmute/speaker icon">
-		</label>
 
 	</body>
 
