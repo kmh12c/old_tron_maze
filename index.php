@@ -44,6 +44,8 @@
 				position: absolute;
     			top: 176px;
 				z-index: -1;
+				border: 1px;
+				border-color: white;	
 			}
 
 			p {
@@ -72,9 +74,9 @@
 			}
 		</script>
 
-		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
-		<img src="img/beta.png" id="beta" alt="beta.png" title="Beta">
-		<img src="img/back2.png" id="back" alt="back.png" title="Back">
+		<img src="img/logo.png" alt="logo.png">
+		<img src="img/beta.png" id="beta" alt="beta.png">
+		<img src="img/back2.png" id="back" alt="back.png">
 				
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
 		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
@@ -89,7 +91,7 @@
 		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down.</p>
 		<br/><br/><br/><br/>
 
-		<canvas id="canvas" style="border: none;" width="1200" height="580"></canvas>
+		<canvas id="canvas" width="1200" height="580"></canvas>
 		<div id="loadingtext"></div>
 		<div id="mazeContents">
 			&nbsp;
