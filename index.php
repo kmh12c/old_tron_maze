@@ -37,9 +37,9 @@
 			}
 			#back {
 				position: absolute;
-    			left: 600px;
-    			top: 300px;
-				z-index: -1;
+    			left: 500px;
+    			top: 465px;
+				z-index: 0;
 			}
 			#canvas {
 				position: absolute;
