@@ -370,6 +370,18 @@
 				var vertexCountDISC1 = 0;
 				var vertexPositionsDISC1 = [];
 				var vertexTextureCoordsDISC1 = [];
+				var vertexCountDISC2 = 0;
+				var vertexPositionsDISC2 = [];
+				var vertexTextureCoordsDISC2 = [];
+				var vertexCountDISC3 = 0;
+				var vertexPositionsDISC3 = [];
+				var vertexTextureCoordsDISC3 = [];
+				var vertexCountDISC4 = 0;
+				var vertexPositionsDISC4 = [];
+				var vertexTextureCoordsDISC4 = [];
+				var vertexCountDISC5 = 0;
+				var vertexPositionsDISC5 = [];
+				var vertexTextureCoordsDISC5 = [];
 				
 				for(var i=0; i < maze["r"]; i++) 
 				{
