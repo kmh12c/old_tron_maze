@@ -32,13 +32,13 @@
 			#beta {
 				position: absolute;
 				left: 7px;
-				top: 115px;
+				top: 135px;
 				z-index: 0;
 			}
 			
 			#canvas {
 				position: absolute;
-    			top: 136px;
+    			top: 156px;
 				z-index: -1;
 			}
 			
