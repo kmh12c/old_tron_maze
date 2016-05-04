@@ -192,6 +192,7 @@
 			var lastTime = 0;
 			var joggingAngle = 0; // Used to make us "jog" up and down as we move forward.
 			var currentDisc = "none"; //will hold the color of the disc that we have "picked up" last
+			var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
 
 			function initGL(canvas) {
 				try {
@@ -670,7 +671,6 @@
 					}
 				}
 
-				var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
 				//============================
 				//		Triangle 1 - DISC1
 				//============================
@@ -991,63 +991,6 @@
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC5), gl.STATIC_DRAW);
 				worldVertexTextureCoordBufferDISC5.itemSize = 2;
 				worldVertexTextureCoordBufferDISC5.numItems = vertexCountDISC5;
-
-				//pick up discs
-				if( (xPos > 4 && xPos < 5) && (zPos < -2 && zPos > -3 ))
-				{
-					alert("blue");
-					currentDisc = "blue";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "initial";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "none";
-				}
-
-				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos > -d2[1] && zPos < -(d2[1] + 1)) )
-				{
-					currentDisc = "red";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "initial";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "none";
-				}
-
-				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos > -d3[1] && zPos < -(d3[1] + 1)) )
-				{
-					currentDisc = "green";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "initial";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "none";
-				}
-
-				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos > -d4[1] && zPos < -(d4[1] + 1)) )
-				{
-					currentDisc = "yellow";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "initial";
-					document.getElementById("purple").display = "none";
-				}
-
-				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos > -d5[1] && zPos < -(d5[1] + 1)) )
-				{
-					currentDisc = "purple";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "initial";
-				}
 			}
 			
 			function drawScene() {
@@ -1185,6 +1128,63 @@
 
 				var mystring = "X: " + xPos + ", Z: " + zPos;
 				document.getElementById("coords").innerHTML = mystring;
+
+				//pick up discs
+				if( (xPos > 4 && xPos < 5) && (zPos < -2 && zPos > -3 ))
+				{
+					alert("blue");
+					currentDisc = "blue";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "initial";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos > -d2[1] && zPos < -(d2[1] + 1)) )
+				{
+					currentDisc = "red";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "initial";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos > -d3[1] && zPos < -(d3[1] + 1)) )
+				{
+					currentDisc = "green";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "initial";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos > -d4[1] && zPos < -(d4[1] + 1)) )
+				{
+					currentDisc = "yellow";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "initial";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos > -d5[1] && zPos < -(d5[1] + 1)) )
+				{
+					currentDisc = "purple";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "initial";
+				}
 			}
 
 			function webGLStart() {
