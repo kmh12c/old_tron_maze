@@ -75,7 +75,7 @@
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
 		
 		<img src="img/beta.png" id="beta" alt="beta.png" title="Beta">
-		<img src="img/back.png" id="back" alt="back.png" title="Back">
+		<img src="img/back2.png" id="back" alt="back.png" title="Back">
 				
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
 		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
