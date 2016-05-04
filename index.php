@@ -31,17 +31,12 @@
 
 			canvas {
 				border: none;
-				width: 1280;
-				height: 720;
+				width: 1300;
+				height: 800;
 			}
 
 		</style>
 		<script>
-
-			function initCanvas() {
-				//canvas = document.getElementById("canvas");
-   				//canvas.width = window.innerWidth;
-			}
 	
     	</script>
 	</head>
@@ -79,7 +74,7 @@
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
 
-		<canvas id="canvas" onload="initCanvas();"></canvas>
+		<canvas id="canvas"></canvas>
 		
 		<div id="loadingtext"></div>
 		
