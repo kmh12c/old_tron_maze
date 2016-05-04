@@ -776,21 +776,21 @@
 				//			Triangle 1
 				//
 				//============================
-				vertexPositionsDISC1.push(parseFloat(xPos)); // X
+				vertexPositionsDISC1.push(parseFloat(4)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(xPos)); // X
+				vertexPositionsDISC1.push(parseFloat(4)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat(zPos*-1)); // Z
+				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(xPos+1)); // X
+				vertexPositionsDISC1.push(parseFloat(4+1)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat(zPos*-1)); // Z
+				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
@@ -801,21 +801,21 @@
 				//			Triangle 2
 				//
 				//============================
-				vertexPositionsDISC1.push(parseFloat(xPos)); // X
+				vertexPositionsDISC1.push(parseFloat(4)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(xPos+1)); // X
+				vertexPositionsDISC1.push(parseFloat(4+1)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(xPos+1)); // X
+				vertexPositionsDISC1.push(parseFloat(4+1)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat(zPos*-1)); // Z
+				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
