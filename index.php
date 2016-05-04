@@ -34,17 +34,9 @@
 				top: 155px;
 				z-index: 0;
 			}
-			.dude {
-				position: absolute;
-				display: none;
-    			left: 420px;
-    			top: 362px;
-				z-index: 0;
-			}
 			
 			.dude {
 				position: absolute;
-				display: initial;
     			left: 420px;
     			top: 362px;
 				z-index: 0;
@@ -60,7 +52,7 @@
 				color: white;
 				font-size: 20px;
 			}
-			
+
 		</style>
 	</head>
 	<body onload="webGLStart();" bgcolor="#000000">
@@ -84,12 +76,12 @@
 
 		<img src="img/logo.png" alt="logo.png">
 		<img src="img/beta.png" id="beta" alt="beta.png">
-		<img src="img/back_none.png" id="none" class="dude" alt="back.png">
 		<img src="img/back_red.png" id="red" class="dude" alt="back.png">
 		<img src="img/back_yellow.png" id="yellow" class="dude" alt="back.png">
 		<img src="img/back_green.png" id="green" class="dude" alt="back.png">
 		<img src="img/back_blue.png" id="blue" class="dude" alt="back.png">
 		<img src="img/back_purple.png" id="purple" class="dude" alt="back.png">		
+		<img src="img/back_none.png" id="none" class="dude" alt="back.png">
 				
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
 		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
@@ -101,7 +93,7 @@
 			</label>
 
 		<br/><br/>
-		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down.</p>
+		<p>Use the <b>Cursor Keys</b> to move around and <b>Space Bar</b> to jump. <b><i>Try to find all 5 colored discs.</i></b></p>
 		<br/><br/><br/><br/>
 
 		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
@@ -192,6 +184,7 @@
 			var lastTime = 0;
 			var joggingAngle = 0; // Used to make us "jog" up and down as we move forward.
 			var currentDisc = "none"; //will hold the color of the disc that we have "picked up" last
+			var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
 
 			function initGL(canvas) {
 				try {
@@ -357,7 +350,6 @@
 				} else {
 					speed = 0;
 				}
-
 			}
 			
 			function loadWorld() {
@@ -367,8 +359,6 @@
 					if (request.readyState == 4) 
 					{
 						maze = decompose(request.responseText);
-						//document.getElementById("mazeContents").innerHTML = dump(maze);
-						//alert(dump(maze[7][8]));
 						handleLoadedWorld(maze);
 					}
 				}
@@ -673,13 +663,12 @@
 					}
 				}
 
-				var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
 				//============================
 				//		Triangle 1 - DISC1
 				//============================
 				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
@@ -689,7 +678,7 @@
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(d1[0]+1)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0]+.5)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
 				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
@@ -702,17 +691,17 @@
 				//============================
 				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(d1[0]+1)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0]+.5)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(d1[0]+1)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0]+.5)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
 				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
@@ -725,7 +714,7 @@
 				//============================
 				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
 				vertexPositionsDISC2.push(parseFloat(0)); // Y
-				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-1)); // Z
+				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
 				
@@ -735,7 +724,7 @@
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC2.push(parseFloat(d2[0]+1)); // X
+				vertexPositionsDISC2.push(parseFloat(d2[0]+.5)); // X
 				vertexPositionsDISC2.push(parseFloat(0)); // Y
 				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
@@ -748,17 +737,17 @@
 				//============================
 				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
 				vertexPositionsDISC2.push(parseFloat(0)); // Y
-				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-1)); // Z
+				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC2.push(parseFloat(d2[0]+1)); // X
+				vertexPositionsDISC2.push(parseFloat(d2[0]+.5)); // X
 				vertexPositionsDISC2.push(parseFloat(0)); // Y
-				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-1)); // Z
+				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC2.push(parseFloat(d2[0]+1)); // X
+				vertexPositionsDISC2.push(parseFloat(d2[0]+.5)); // X
 				vertexPositionsDISC2.push(parseFloat(0)); // Y
 				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
@@ -771,7 +760,7 @@
 				//============================
 				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
 				vertexPositionsDISC3.push(parseFloat(0)); // Y
-				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-1)); // Z
+				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
 				
@@ -781,7 +770,7 @@
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC3.push(parseFloat(d3[0]+1)); // X
+				vertexPositionsDISC3.push(parseFloat(d3[0]+.5)); // X
 				vertexPositionsDISC3.push(parseFloat(0)); // Y
 				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
@@ -794,17 +783,17 @@
 				//============================
 				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
 				vertexPositionsDISC3.push(parseFloat(0)); // Y
-				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-1)); // Z
+				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC3.push(parseFloat(d3[0]+1)); // X
+				vertexPositionsDISC3.push(parseFloat(d3[0]+.5)); // X
 				vertexPositionsDISC3.push(parseFloat(0)); // Y
-				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-1)); // Z
+				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC3.push(parseFloat(d3[0]+1)); // X
+				vertexPositionsDISC3.push(parseFloat(d3[0]+.5)); // X
 				vertexPositionsDISC3.push(parseFloat(0)); // Y
 				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
@@ -817,7 +806,7 @@
 				//============================
 				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
 				vertexPositionsDISC4.push(parseFloat(0)); // Y
-				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-1)); // Z
+				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
 				
@@ -827,7 +816,7 @@
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC4.push(parseFloat(d4[0]+1)); // X
+				vertexPositionsDISC4.push(parseFloat(d4[0]+.5)); // X
 				vertexPositionsDISC4.push(parseFloat(0)); // Y
 				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
@@ -840,17 +829,17 @@
 				//============================
 				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
 				vertexPositionsDISC4.push(parseFloat(0)); // Y
-				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-1)); // Z
+				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC4.push(parseFloat(d4[0]+1)); // X
+				vertexPositionsDISC4.push(parseFloat(d4[0]+.5)); // X
 				vertexPositionsDISC4.push(parseFloat(0)); // Y
-				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-1)); // Z
+				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
 			
-				vertexPositionsDISC4.push(parseFloat(d4[0]+1)); // X
+				vertexPositionsDISC4.push(parseFloat(d4[0]+.5)); // X
 				vertexPositionsDISC4.push(parseFloat(0)); // Y
 				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
@@ -863,7 +852,7 @@
 				//============================
 				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
 				vertexPositionsDISC5.push(parseFloat(0)); // Y
-				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-1)); // Z
+				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
 				
@@ -873,7 +862,7 @@
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC5.push(parseFloat(d5[0]+1)); // X
+				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
 				vertexPositionsDISC5.push(parseFloat(0)); // Y
 				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
@@ -886,17 +875,17 @@
 				//============================
 				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
 				vertexPositionsDISC5.push(parseFloat(0)); // Y
-				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-1)); // Z
+				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC5.push(parseFloat(d5[0]+1)); // X
+				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
 				vertexPositionsDISC5.push(parseFloat(0)); // Y
-				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-1)); // Z
+				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
 			
-				vertexPositionsDISC5.push(parseFloat(d5[0]+1)); // X
+				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
 				vertexPositionsDISC5.push(parseFloat(0)); // Y
 				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
@@ -1026,56 +1015,70 @@
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 
-				//disc1
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
+				if(currentDisc != "blue")
+				{
+					//disc1
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
+				}
 
-				//disc2
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc2"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC2);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC2);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC2.numItems);
+				if(currentDisc != "red")
+				{
+					//disc2
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc2"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC2);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC2);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC2.numItems);
+				}
 
-				//disc3
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc3"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC3);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC3);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC3.numItems);
+				if(currentDisc != "green")
+				{
+					//disc3
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc3"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC3);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC3);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC3.numItems);
+				}
 
-				//disc4
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc4"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC4);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC4);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC4.numItems);
+				if(currentDisc != "yellow")
+				{
+					//disc4
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc4"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC4);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC4);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC4.numItems);
+				}
 
-				//disc5
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc5"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC5);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC5);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC5.numItems);
-
+				if(currentDisc != "purple")
+				{
+					//disc5
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc5"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC5);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC5);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC5.numItems);
+				}
 			}
 
 			function animate() {
@@ -1114,6 +1117,62 @@
 				handleKeys();
 				drawScene();
 				animate();
+
+				//pick up discs
+				if( (xPos > d1[0] && xPos < (d1[0] + 1)) && (zPos < -d1[1] && zPos > -(d1[1] + 1)) )
+				{
+					currentDisc = "blue";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "inline";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "none";
+				}
+
+				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos < -d2[1] && zPos > -(d2[1] + 1)) )
+				{
+					currentDisc = "red";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "inline";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "none";
+				}
+
+				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos < -d3[1] && zPos > -(d3[1] + 1)) )
+				{
+					currentDisc = "green";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "inline";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "none";
+				}
+
+				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos < -d4[1] && zPos > -(d4[1] + 1)) )
+				{
+					currentDisc = "yellow";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "inline";
+					document.getElementById("purple").style.display = "none";
+				}
+
+				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos < -d5[1] && zPos > -(d5[1] + 1)) )
+				{
+					currentDisc = "purple";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "inline";
+				}
 			}
 
 			function webGLStart() {
