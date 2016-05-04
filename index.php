@@ -1130,7 +1130,7 @@
 				document.getElementById("coords").innerHTML = mystring;
 
 				//pick up discs
-				if( (xPos > 4 && xPos < 5) && (zPos < -2 && zPos > -3 ))
+				if( (xPos > d1[0] && xPos < (d1[0] + 1)) && (zPos < -d1[1] && zPos > -(d1[1] + 1)) )
 				{
 					alert("blue");
 					currentDisc = "blue";
@@ -1142,8 +1142,9 @@
 					document.getElementById("purple").display = "none";
 				}
 
-				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos > -d2[1] && zPos < -(d2[1] + 1)) )
+				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos < -d2[1] && zPos > -(d2[1] + 1)) )
 				{
+					alert("red");
 					currentDisc = "red";
 					document.getElementById("none").display = "none";
 					document.getElementById("blue").display = "none";
@@ -1153,8 +1154,9 @@
 					document.getElementById("purple").display = "none";
 				}
 
-				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos > -d3[1] && zPos < -(d3[1] + 1)) )
+				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos < -d3[1] && zPos > -(d3[1] + 1)) )
 				{
+					alert("green");
 					currentDisc = "green";
 					document.getElementById("none").display = "none";
 					document.getElementById("blue").display = "none";
@@ -1164,8 +1166,9 @@
 					document.getElementById("purple").display = "none";
 				}
 
-				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos > -d4[1] && zPos < -(d4[1] + 1)) )
+				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos < -d4[1] && zPos > -(d4[1] + 1)) )
 				{
+					alert("yellow");
 					currentDisc = "yellow";
 					document.getElementById("none").display = "none";
 					document.getElementById("blue").display = "none";
@@ -1175,8 +1178,9 @@
 					document.getElementById("purple").display = "none";
 				}
 
-				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos > -d5[1] && zPos < -(d5[1] + 1)) )
+				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos < -d5[1] && zPos > -(d5[1] + 1)) )
 				{
+					alert("purple");
 					currentDisc = "purple";
 					document.getElementById("none").display = "none";
 					document.getElementById("blue").display = "none";
