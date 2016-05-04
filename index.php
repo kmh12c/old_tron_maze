@@ -97,6 +97,8 @@
 		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down. <b><i>Try to find all 5 discs.</i></b></p>
 		<br/><br/><br/><br/>
 
+		<div id="coords"></div>
+
 		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
 		<div id="loadingtext"></div>
 		<div id="mazeContents">
@@ -1177,6 +1179,9 @@
 				handleKeys();
 				drawScene();
 				animate();
+
+				var mystring = "X: " + xPos + ", Z: " + zPos;
+				document.getElementById("coords").innerHTML = mystring;
 			}
 
 			function webGLStart() {
