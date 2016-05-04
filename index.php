@@ -31,23 +31,24 @@
 			#beta {
 				position: absolute;
 				left: 7px;
-				top: 135px;
+				top: 155px;
 				z-index: 0;
 			}
 			#back {
 				position: absolute;
     			left: 420px;
-    			top: 342px;
+    			top: 362px;
 				z-index: 0;
 			}
 			#canvas {
 				position: absolute;
-    			top: 156px;
+    			top: 176px;
 				z-index: -1;
 			}
 
 			p {
 				color: white;
+				font-size: 20px;
 			}
 			
 		</style>
@@ -85,7 +86,7 @@
 			</label>
 
 		<br/><br/>
-		<p>Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.</p>
+		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down.</p>
 		<br/><br/><br/><br/>
 
 		<canvas id="canvas" style="border: none;" width="1200" height="580"></canvas>
