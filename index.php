@@ -37,6 +37,8 @@
 			}
 			
 			#canvas {
+				position: absolute;
+    			top: 136px;
 				z-index: -1;
 			}
 			
