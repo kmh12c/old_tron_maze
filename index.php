@@ -31,24 +31,29 @@
 			#beta {
 				position: absolute;
 				left: 7px;
-				top: 135px;
+				top: 155px;
 				z-index: 0;
 			}
 			#back {
 				position: absolute;
     			left: 420px;
-    			top: 342px;
+    			top: 362px;
 				z-index: 0;
 			}
 			#canvas {
 				position: absolute;
-    			top: 156px;
+    			top: 176px;
 				z-index: -1;
+			}
+
+			p {
+				color: white;
+				font-size: 20px;
 			}
 			
 		</style>
 	</head>
-	<body onload="webGLStart();">
+	<body onload="webGLStart();" bgcolor="#000000">
 		<audio id="myAudio" autoplay="autoplay">
 			<source src="music/flynn.ogg" type="audio/ogg">
 			<source src="music/flynn.mp3" type="audio/mpeg">
@@ -67,9 +72,9 @@
 			}
 		</script>
 
-		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
-		<img src="img/beta.png" id="beta" alt="beta.png" title="Beta">
-		<img src="img/back2.png" id="back" alt="back.png" title="Back">
+		<img src="img/logo.png" alt="logo.png">
+		<img src="img/beta.png" id="beta" alt="beta.png">
+		<img src="img/back2.png" id="back" alt="back.png">
 				
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
 		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
@@ -81,9 +86,10 @@
 			</label>
 
 		<br/><br/>
-		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/><br/><br/>
+		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down.</p>
+		<br/><br/><br/><br/>
 
-		<canvas id="canvas" style="border: none;" width="1200" height="580"></canvas>
+		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
 		<div id="loadingtext"></div>
 		<div id="mazeContents">
 			&nbsp;
@@ -250,10 +256,10 @@
 				textureArray["floor"] = loadTextures("img/floor.png");
 				textureArray["wall"] = loadTextures("img/wall.png");
 				textureArray["disc1"] = loadTextures("img/disk_blue.png");
-				textureArray["disc2"] = loadTextures("img/disk_blue.png");
-				textureArray["disc3"] = loadTextures("img/disk_blue.png");
-				textureArray["disc4"] = loadTextures("img/disk_blue.png");
-				textureArray["disc5"] = loadTextures("img/disk_blue.png");
+				textureArray["disc2"] = loadTextures("img/disk_red.png");
+				textureArray["disc3"] = loadTextures("img/disk_green.png");
+				textureArray["disc4"] = loadTextures("img/disk_yellow.png");
+				textureArray["disc5"] = loadTextures("img/disk_purple.png");
 			}
 			
 			function loadTextures(texture_location) {
