@@ -83,7 +83,7 @@
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/><br/><br/>
 
-		<canvas id="canvas" style="border: none;" width="1200" height="550"></canvas>
+		<canvas id="canvas" style="border: none;" width="1200" height="580"></canvas>
 		
 		<div id="loadingtext"></div>
 		
@@ -379,13 +379,11 @@
 				var vertexPositionsFLOOR = [];
 				var vertexTextureCoordsFLOOR = [];
 				
-				
-
 				for(var i=0; i < maze["r"]; i++) 
 				{
 					for(var j=0; j < maze["c"]; j++)
 					{
-						currentTile=maze[i][j]; //assoc array. "p" = passable (true/false), "t" = tile (img location)
+						currentTile=maze[i][j];
 						
 						//============================
 						//
@@ -766,24 +764,89 @@
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 
+
+
 				//discs
-				// gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
-				// gl.uniform1i(shaderProgram.samplerUniform, 0);
+				var vertexPositionsDISC1 = [];
+				var vertexTextureCoordsDISC1 = [];
+				var vertexCountDISC1 = 4;
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+				//============================
+				//
+				//			Triangle 1
+				//
+				//============================
+				vertexPositionsDISC1.push(parseFloat(xPos)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
+				vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
+				vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC1.push(parseFloat(xPos)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(zPos*-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
+				
+				vertexPositionsDISC1.push(parseFloat(xPos+1)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(zPos*-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC1 += 3;
+				
+				//============================
+				//
+				//			Triangle 2
+				//
+				//============================
+				vertexPositionsDISC1.push(parseFloat(xPos)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC1.push(parseFloat(xPos+1)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC1.push(parseFloat(xPos+1)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(zPos*-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC1 += 3;
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-				// setMatrixUniforms();
-				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+				var worldVertexPositionBufferDISC1 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC1), gl.STATIC_DRAW);
+				worldVertexPositionBufferDISC1.itemSize = 3;
+				worldVertexPositionBufferDISC1.numItems = vertexCountDISC1;
 
+				var worldVertexTextureCoordBufferDISC1 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC1), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferDISC1.itemSize = 2;
+				worldVertexTextureCoordBufferDISC1.numItems = vertexCountDISC1;
+
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
 
 			}
-			
-			
-
 
 			var lastTime = 0;
 			// Used to make us "jog" up and down as we move forward.
