@@ -770,7 +770,7 @@
 
 					if (speed != 0) {
 
-						for(int i = 0; i < vertexPositions.length - 3; i += 3)
+						for(var i = 0; i < vertexPositions.length - 3; i += 3)
 						{
 							checkX = xPos - Math.sin(degToRad(yaw)) * speed * elapsed;
 							checkZ = zPos - Math.sin(degToRad(yaw)) * speed * elapsed
