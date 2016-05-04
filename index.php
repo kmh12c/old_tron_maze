@@ -184,7 +184,7 @@
 			var lastTime = 0;
 			var joggingAngle = 0; // Used to make us "jog" up and down as we move forward.
 			var currentDisc = "none"; //will hold the color of the disc that we have "picked up" last
-			var d1 = [4.2,2.7], d2 = [6.5,8.5], d3 = [10.4,10.5], d4 = [2.6,3.3], d5 = [2.4,7.8];
+			var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
 
 			function initGL(canvas) {
 				try {
@@ -1119,7 +1119,7 @@
 				animate();
 
 				//pick up discs
-				if( (xPos > d1[0] && xPos < (d1[0] + 1)) && (zPos < -d1[1] && zPos > -(d1[1] + 1)) )
+				if( (xPos > d1[0] && xPos < (d1[0] + 0.5)) && (zPos < -d1[1] && zPos > -(d1[1] + 0.5)) )
 				{
 					currentDisc = "blue";
 					document.getElementById("none").style.display = "none";
@@ -1130,7 +1130,7 @@
 					document.getElementById("purple").style.display = "none";
 				}
 
-				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos < -d2[1] && zPos > -(d2[1] + 1)) )
+				if( (xPos > d2[0] && xPos < (d2[0] + 0.5)) && (zPos < -d2[1] && zPos > -(d2[1] + 0.5)) )
 				{
 					currentDisc = "red";
 					document.getElementById("none").style.display = "none";
@@ -1141,7 +1141,7 @@
 					document.getElementById("purple").style.display = "none";
 				}
 
-				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos < -d3[1] && zPos > -(d3[1] + 1)) )
+				if( (xPos > d3[0] && xPos < (d3[0] + 0.5)) && (zPos < -d3[1] && zPos > -(d3[1] + 0.5)) )
 				{
 					currentDisc = "green";
 					document.getElementById("none").style.display = "none";
@@ -1152,7 +1152,7 @@
 					document.getElementById("purple").style.display = "none";
 				}
 
-				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos < -d4[1] && zPos > -(d4[1] + 1)) )
+				if( (xPos > d4[0] && xPos < (d4[0] + 0.5)) && (zPos < -d4[1] && zPos > -(d4[1] + 0.5)) )
 				{
 					currentDisc = "yellow";
 					document.getElementById("none").style.display = "none";
@@ -1163,7 +1163,7 @@
 					document.getElementById("purple").style.display = "none";
 				}
 
-				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos < -d5[1] && zPos > -(d5[1] + 1)) )
+				if( (xPos > d5[0] && xPos < (d5[0] + 0.5)) && (zPos < -d5[1] && zPos > -(d5[1] + 0.5)) )
 				{
 					currentDisc = "purple";
 					document.getElementById("none").style.display = "none";
