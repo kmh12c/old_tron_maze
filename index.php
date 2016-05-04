@@ -675,17 +675,17 @@
 				}
 
 				//WALL
-				worldVertexPositionBuffer = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
-				worldVertexPositionBuffer.itemSize = 3;
-				worldVertexPositionBuffer.numItems = vertexCount;
+				// worldVertexPositionBuffer = gl.createBuffer();
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+				// worldVertexPositionBuffer.itemSize = 3;
+				// worldVertexPositionBuffer.numItems = vertexCount;
 
-				worldVertexTextureCoordBuffer = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
-				worldVertexTextureCoordBuffer.itemSize = 2;
-				worldVertexTextureCoordBuffer.numItems = vertexCount;
+				// worldVertexTextureCoordBuffer = gl.createBuffer();
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+				// worldVertexTextureCoordBuffer.itemSize = 2;
+				// worldVertexTextureCoordBuffer.numItems = vertexCount;
 
 				//FLOOR
 				worldVertexPositionBufferFLOOR = gl.createBuffer();
@@ -722,7 +722,7 @@
 				
 				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
-				gl.uniform1i(shaderProgram.samplerUniform2, 0);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
@@ -734,30 +734,30 @@
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
 				//WALL
-				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
-					return;
-				}
+				// if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
+				// 	return;
+				// }
 
-				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+				// mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 
-				mat4.identity(mvMatrix);
+				// mat4.identity(mvMatrix);
 
-				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
-				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
-				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
+				// mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
+				// mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
+				// mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
-				gl.activeTexture(gl.TEXTURE1);
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 1);
+				// gl.activeTexture(gl.TEXTURE1);
+				// gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				// gl.uniform1i(shaderProgram.samplerUniform, 1);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+				// setMatrixUniforms();
+				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 			}
 			
 			
