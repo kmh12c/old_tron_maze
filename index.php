@@ -31,8 +31,8 @@
 
 			canvas {
 				border: none;
-				width: 1200;
-				height: 800;
+				/*width: 1200;*/
+				/*height: 800;*/
 			}
 
 		</style>
@@ -40,8 +40,8 @@
 
 			function initCanvas() {
 				canvas = document.getElementById("canvas");
-   				canvas.width = document.body.clientWidth;
-    			//canvas.height = document.body.clientHeight;
+   				canvas.width = window.innerWidth;
+    			// canvas.height = auto;
 			}
 	
     	</script>
