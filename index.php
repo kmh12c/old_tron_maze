@@ -775,7 +775,7 @@
 				//discs
 				var vertexPositionsDISC1 = [];
 				var vertexTextureCoordsDISC1 = [];
-				var vertexCountDISC1 = 4;
+				var vertexCountDISC1 = 0;
 
 				//============================
 				//
