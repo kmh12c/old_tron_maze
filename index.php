@@ -770,17 +770,25 @@
 
 					if (speed != 0) {
 
+						var move;
 						for(var i = 0; i < vertexPositions.length - 3; i += 3)
 						{
 							checkX = xPos - Math.sin(degToRad(yaw)) * speed * elapsed;
 							checkZ = zPos - Math.sin(degToRad(yaw)) * speed * elapsed
 							if( (checkX == vertexPositions[i]) && (checkZ > vertexPositions[i+2] && checkZ < vertexPositions[i+5]) || (checkZ == vertexPositions[i+2]) && (checkX > vertexPositions[i] && checkX < vertexPositions[i+3]) )
-							{}
+							{
+								move = true;
+							}
 							else 
 							{
-								xPos -= Math.sin(degToRad(yaw)) * speed * elapsed;
-								zPos -= Math.cos(degToRad(yaw)) * speed * elapsed;
+								move = false;
 							}
+						}
+
+						if(move)
+						{
+							xPos -= Math.sin(degToRad(yaw)) * speed * elapsed;
+							zPos -= Math.cos(degToRad(yaw)) * speed * elapsed;	
 						}
 
 						joggingAngle += elapsed * 0.6; // 0.6 "fiddle factor" - makes it feel more realistic :)
