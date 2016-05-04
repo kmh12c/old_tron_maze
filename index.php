@@ -778,6 +778,7 @@
 							if( (checkX == vertexPositions[i]) && (checkZ > vertexPositions[i+2] && checkZ < vertexPositions[i+5]) || (checkZ == vertexPositions[i+2]) && (checkX > vertexPositions[i] && checkX < vertexPositions[i+3]) )
 							{
 								move = false;
+								alert("YOU CAN'T MOVE HERE");
 							}
 							else 
 							{
