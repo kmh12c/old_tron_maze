@@ -38,7 +38,7 @@
 			#back {
 				position: absolute;
     			left: 500px;
-    			top: 465px;
+    			top: 466px;
 				z-index: 0;
 			}
 			#canvas {
