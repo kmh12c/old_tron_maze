@@ -44,7 +44,6 @@
 				position: absolute;
     			top: 176px;
 				z-index: -1;
-				border: 1px solid #111111;
 			}
 
 			p {
@@ -90,7 +89,7 @@
 		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down.</p>
 		<br/><br/><br/><br/>
 
-		<canvas id="canvas" width="1200" height="580"></canvas>
+		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
 		<div id="loadingtext"></div>
 		<div id="mazeContents">
 			&nbsp;
