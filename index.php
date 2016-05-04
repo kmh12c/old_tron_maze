@@ -91,14 +91,14 @@
 			precision mediump float;
 
 			varying vec2 vTextureCoord;
-			varying vec2 vTextureCoord2;
 
 			uniform sampler2D uSampler;
 			uniform sampler2D uSampler2;
 
 			void main(void) {
-				gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
-				vec4 FragColor2 = texture2D(uSampler2, vec2(vTextureCoord2.s, vTextureCoord2.t));
+				vec2 color1 = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+				vec2 color2 = texture2D(uSampler2, vec2(vTextureCoord.s, vTextureCoord.t));
+				gl_FragColor = color1 * color2;
 			}
 		</script>
 
@@ -192,7 +192,7 @@
 				gl.linkProgram(shaderProgram);
 
 				if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-					alert("Could not initialise shaders-my alert");
+					alert("Could not initialise shaders");
 				}
 
 				gl.useProgram(shaderProgram);
@@ -205,8 +205,14 @@
 
 				shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
 				shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
-				shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
-				//shaderProgram.samplerUniform2 = gl.getUniformLocation(shaderProgram, "uSampler2");
+
+ 		 		var u_image0Location = gl.getUniformLocation(shaderProgram, "uSampler");
+  				var u_image1Location = gl.getUniformLocation(shaderProgram, "uSampler2");
+
+			  	// set which texture units to render with.
+			  	gl.uniform1i(u_image0Location, 0);  // texture unit 0
+			  	gl.uniform1i(u_image1Location, 1);  // texture unit 1
+
 			}
 
 
@@ -675,17 +681,17 @@
 				}
 
 				//WALL
-				// worldVertexPositionBuffer = gl.createBuffer();
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
-				// worldVertexPositionBuffer.itemSize = 3;
-				// worldVertexPositionBuffer.numItems = vertexCount;
+				worldVertexPositionBuffer = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+				worldVertexPositionBuffer.itemSize = 3;
+				worldVertexPositionBuffer.numItems = vertexCount;
 
-				// worldVertexTextureCoordBuffer = gl.createBuffer();
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
-				// worldVertexTextureCoordBuffer.itemSize = 2;
-				// worldVertexTextureCoordBuffer.numItems = vertexCount;
+				worldVertexTextureCoordBuffer = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+				worldVertexTextureCoordBuffer.itemSize = 2;
+				worldVertexTextureCoordBuffer.numItems = vertexCount;
 
 				//FLOOR
 				worldVertexPositionBufferFLOOR = gl.createBuffer();
@@ -722,7 +728,6 @@
 				
 				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
@@ -734,30 +739,18 @@
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
 				//WALL
-				// if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
-				// 	return;
-				// }
+				gl.activeTexture(gl.TEXTURE1);
+  				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
 
-				// mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-				// mat4.identity(mvMatrix);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-				// mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
-				// mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
-				// mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
-				
-				// gl.activeTexture(gl.TEXTURE1);
-				// gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
-				// gl.uniform1i(shaderProgram.samplerUniform, 1);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
-				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
-				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-				// setMatrixUniforms();
-				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 			}
 			
 			
