@@ -624,60 +624,60 @@
 								}
 
 								
-								// //============================
-								// //
-								// //			Top
-								// //
-								// //============================
-								// 	//============================
-								// 	//
-								// 	//			Triangle 1
-								// 	//
-								// 	//============================
-								// 	vertexPositions.push(parseFloat(j)); // X
-								// 	vertexPositions.push(parseFloat(1)); // Y
-								// 	vertexPositions.push(parseFloat(i*-1)); // Z
-								// 	vertexTextureCoords.push(parseFloat(0.0)); // U
-								// 	vertexTextureCoords.push(parseFloat(1.0)); // V
+								//============================
+								//
+								//			Top
+								//
+								//============================
+									//============================
+									//
+									//			Triangle 1
+									//
+									//============================
+									vertexPositions.push(parseFloat(j)); // X
+									vertexPositions.push(parseFloat(1)); // Y
+									vertexPositions.push(parseFloat(i*-1)); // Z
+									vertexTextureCoords.push(parseFloat(0.0)); // U
+									vertexTextureCoords.push(parseFloat(1.0)); // V
 									
-								// 	vertexPositions.push(parseFloat(j)); // X
-								// 	vertexPositions.push(parseFloat(1)); // Y
-								// 	vertexPositions.push(parseFloat((i*-1)-1)); // Z
-								// 	vertexTextureCoords.push(parseFloat(0.0)); // U
-								// 	vertexTextureCoords.push(parseFloat(0.0)); // V
+									vertexPositions.push(parseFloat(j)); // X
+									vertexPositions.push(parseFloat(1)); // Y
+									vertexPositions.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoords.push(parseFloat(0.0)); // U
+									vertexTextureCoords.push(parseFloat(0.0)); // V
 									
-								// 	vertexPositions.push(parseFloat(j+1)); // X
-								// 	vertexPositions.push(parseFloat(1)); // Y
-								// 	vertexPositions.push(parseFloat((i*-1)-1)); // Z
-								// 	vertexTextureCoords.push(parseFloat(1.0)); // U
-								// 	vertexTextureCoords.push(parseFloat(0.0)); // V
+									vertexPositions.push(parseFloat(j+1)); // X
+									vertexPositions.push(parseFloat(1)); // Y
+									vertexPositions.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoords.push(parseFloat(1.0)); // U
+									vertexTextureCoords.push(parseFloat(0.0)); // V
 									
-								// 	vertexCount += 3;
+									vertexCount += 3;
 									
-								// 	//============================
-								// 	//
-								// 	//			Triangle 2
-								// 	//
-								// 	//============================
-								// 	vertexPositions.push(parseFloat(j)); // X
-								// 	vertexPositions.push(parseFloat(1)); // Y
-								// 	vertexPositions.push(parseFloat(i*-1)); // Z
-								// 	vertexTextureCoords.push(parseFloat(0.0)); // U
-								// 	vertexTextureCoords.push(parseFloat(1.0)); // V
+									//============================
+									//
+									//			Triangle 2
+									//
+									//============================
+									vertexPositions.push(parseFloat(j)); // X
+									vertexPositions.push(parseFloat(1)); // Y
+									vertexPositions.push(parseFloat(i*-1)); // Z
+									vertexTextureCoords.push(parseFloat(0.0)); // U
+									vertexTextureCoords.push(parseFloat(1.0)); // V
 									
-								// 	vertexPositions.push(parseFloat(j+1)); // X
-								// 	vertexPositions.push(parseFloat(1)); // Y
-								// 	vertexPositions.push(parseFloat(i*-1)); // Z
-								// 	vertexTextureCoords.push(parseFloat(1.0)); // U
-								// 	vertexTextureCoords.push(parseFloat(1.0)); // V
+									vertexPositions.push(parseFloat(j+1)); // X
+									vertexPositions.push(parseFloat(1)); // Y
+									vertexPositions.push(parseFloat(i*-1)); // Z
+									vertexTextureCoords.push(parseFloat(1.0)); // U
+									vertexTextureCoords.push(parseFloat(1.0)); // V
 									
-								// 	vertexPositions.push(parseFloat(j+1)); // X
-								// 	vertexPositions.push(parseFloat(1)); // Y
-								// 	vertexPositions.push(parseFloat((i*-1)-1)); // Z
-								// 	vertexTextureCoords.push(parseFloat(1.0)); // U
-								// 	vertexTextureCoords.push(parseFloat(0.0)); // V
+									vertexPositions.push(parseFloat(j+1)); // X
+									vertexPositions.push(parseFloat(1)); // Y
+									vertexPositions.push(parseFloat((i*-1)-1)); // Z
+									vertexTextureCoords.push(parseFloat(1.0)); // U
+									vertexTextureCoords.push(parseFloat(0.0)); // V
 									
-								// 	vertexCount += 3;
+									vertexCount += 3;
 
 
 								
