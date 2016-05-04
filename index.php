@@ -243,7 +243,7 @@
 			function initTextures() {
 				textureArray["floor"] = loadTextures("img/floor.png");
 				textureArray["wall"] = loadTextures("img/wall.png");
-				textureArray["disc1"] = loadTextures("img/health100.png");
+				textureArray["disc1"] = loadTextures("img/disk_blue.png");
 				// textureArray["disc2"] = loadTextures("img/health80.png");
 				// textureArray["disc3"] = loadTextures("img/health60.png");
 				// textureArray["disc4"] = loadTextures("img/health40.png");
