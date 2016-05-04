@@ -53,6 +53,11 @@
 				color: white;
 				font-size: 20px;
 			}
+
+			#coords {
+				color: white;
+				font-style: bold;
+			}
 			
 		</style>
 	</head>
@@ -93,11 +98,11 @@
 				<img src="img/Speaker_Icon.png" alt="Speaker_Icon.png" alt="Speaker_Icon.svg" title="Unmute/speaker icon">
 			</label>
 
+		<div id="coords"></div>	
+
 		<br/><br/>
 		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down. <b><i>Try to find all 5 discs.</i></b></p>
 		<br/><br/><br/><br/>
-
-		<div id="coords"></div>
 
 		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
 		<div id="loadingtext"></div>
@@ -361,8 +366,6 @@
 					if (request.readyState == 4) 
 					{
 						maze = decompose(request.responseText);
-						//document.getElementById("mazeContents").innerHTML = dump(maze);
-						//alert(dump(maze[7][8]));
 						handleLoadedWorld(maze);
 					}
 				}
