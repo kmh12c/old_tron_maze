@@ -993,7 +993,7 @@
 				worldVertexTextureCoordBufferDISC5.numItems = vertexCountDISC5;
 
 				//pick up discs
-				if( (xPos > d1[0] && xPos < (d1[0] + 1)) && (zPos > -d1[1] && zPos < -(d1[1] + 1)) )
+				if( (xPos > 4 && xPos < 5) && (zPos < -2 && zPos > -3 ))
 				{
 					alert("blue");
 					currentDisc = "blue";
