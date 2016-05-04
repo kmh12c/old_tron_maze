@@ -31,8 +31,8 @@
 
 			canvas {
 				border: none;
-				width: 1280px;
-				height: 720px;
+				width: 1280;
+				height: 720;
 			}
 
 		</style>
