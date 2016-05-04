@@ -93,12 +93,9 @@
 			varying vec2 vTextureCoord;
 
 			uniform sampler2D uSampler;
-			uniform sampler2D uSampler2;
 
 			void main(void) {
-				vec2 color1 = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
-				vec2 color2 = texture2D(uSampler2, vec2(vTextureCoord.s, vTextureCoord.t));
-				gl_FragColor = color1 * color2;
+				gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
 			}
 		</script>
 
@@ -205,14 +202,7 @@
 
 				shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
 				shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
-
- 		 		var u_image0Location = gl.getUniformLocation(shaderProgram, "uSampler");
-  				var u_image1Location = gl.getUniformLocation(shaderProgram, "uSampler2");
-
-			  	// set which texture units to render with.
-			  	gl.uniform1i(u_image0Location, 0);  // texture unit 0
-			  	gl.uniform1i(u_image1Location, 1);  // texture unit 1
-
+				shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
 			}
 
 
@@ -728,6 +718,7 @@
 				
 				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
@@ -739,8 +730,21 @@
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
 				//WALL
-				gl.activeTexture(gl.TEXTURE1);
-  				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
+					return;
+				}
+
+				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+				mat4.identity(mvMatrix);
+
+				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
+				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
+				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
+				
+				gl.activeTexture(gl.TEXTURE0);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -750,7 +754,6 @@
 
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
-
 			}
 			
 			
