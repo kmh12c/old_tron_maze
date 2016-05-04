@@ -667,19 +667,19 @@
 				//		Triangle 1 - DISC1
 				//============================
 				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
-				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
-				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
 				vertexPositionsDISC1.push(parseFloat(d1[0]+.5)); // X
-				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
@@ -690,19 +690,19 @@
 				//		Triangle 2 - DISC1
 				//============================
 				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
-				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC1.push(parseFloat(d1[0]+.5)); // X
-				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC1.push(parseFloat(d1[0]+.5)); // X
-				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
@@ -713,19 +713,19 @@
 				//		Triangle 1 - DISC2
 				//============================
 				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
-				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
-				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
 				
 				vertexPositionsDISC2.push(parseFloat(d2[0]+.5)); // X
-				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
@@ -736,19 +736,19 @@
 				//		Triangle 2 - DISC2
 				//============================
 				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
-				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC2.push(parseFloat(d2[0]+.5)); // X
-				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC2.push(parseFloat(d2[0]+.5)); // X
-				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
 				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
@@ -759,19 +759,19 @@
 				//		Triangle 1 - DISC3
 				//============================
 				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
-				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
-				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
 				
 				vertexPositionsDISC3.push(parseFloat(d3[0]+.5)); // X
-				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
@@ -782,19 +782,19 @@
 				//		Triangle 2 - DISC3
 				//============================
 				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
-				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC3.push(parseFloat(d3[0]+.5)); // X
-				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC3.push(parseFloat(d3[0]+.5)); // X
-				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
 				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
@@ -805,19 +805,19 @@
 				//		Triangle 1 - DISC4
 				//============================
 				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
-				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
-				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
 				
 				vertexPositionsDISC4.push(parseFloat(d4[0]+.5)); // X
-				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
@@ -828,19 +828,19 @@
 				//		Triangle 2 - DISC4
 				//============================
 				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
-				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC4.push(parseFloat(d4[0]+.5)); // X
-				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
 			
 				vertexPositionsDISC4.push(parseFloat(d4[0]+.5)); // X
-				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
 				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
@@ -851,19 +851,19 @@
 				//		Triangle 1 - DISC5
 				//============================
 				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
-				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
-				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
 				
 				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
-				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
@@ -874,19 +874,19 @@
 				//		Triangle 2 - DISC5
 				//============================
 				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
-				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
-				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-.5)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
 			
 				vertexPositionsDISC5.push(parseFloat(d5[0]+.5)); // X
-				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(0.01)); // Y
 				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
 				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
