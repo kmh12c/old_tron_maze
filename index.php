@@ -28,13 +28,22 @@
 			input#un_mute:checked ~ .mute img {
 				display: none;
 			}
+
+			canvas {
+				border: none;
+				width: 1200;
+				height: 800;
+			}
+
 		</style>
 		<script>
-			//http://stackoverflow.com/questions/14356956/playing-audio-after-the-page-loads-in-html
-			// window.onload = function() {
-			// 	document.getElementById("western").play();
-			// }
-			
+
+			function initCanvas() {
+				canvas = document.getElementById("canvas");
+   				canvas.width = document.body.clientWidth;
+    			//canvas.height = document.body.clientHeight;
+			}
+	
     	</script>
 	</head>
 
@@ -71,7 +80,7 @@
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
 
-		<canvas id="canvas" style="border: none;" width="1200" height="1000"></canvas>
+		<canvas id="canvas" onload="initCanvas();"></canvas>
 		
 		<div id="loadingtext"></div>
 		
