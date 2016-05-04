@@ -68,7 +68,7 @@
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
 
-		<canvas id="canvas" style="border: none;" width="1280" height="720"></canvas>
+		<canvas id="canvas" style="border: none;" width="1200" height="600"></canvas>
 		
 		<div id="loadingtext"></div>
 		
