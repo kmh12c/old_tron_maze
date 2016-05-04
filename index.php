@@ -29,6 +29,17 @@
 				display: none;
 			}
 
+			#beta {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				z-index: 0;
+			}
+			
+			#canvas {
+				z-index: -1;
+			}
+			
 		</style>
 		<script>
 	
@@ -55,7 +66,9 @@
 		</script>
 
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
-
+		
+		<img src="img/beta.png" id="beta" alt="beta.png" title="Beta">
+		
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
 		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
 			<label for="un_mute" class="unmute">
