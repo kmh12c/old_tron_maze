@@ -44,8 +44,7 @@
 				position: absolute;
     			top: 176px;
 				z-index: -1;
-				border: 1px;
-				border-color: white;	
+				border: 1px solid #111111;
 			}
 
 			p {
@@ -258,10 +257,10 @@
 				textureArray["floor"] = loadTextures("img/floor.png");
 				textureArray["wall"] = loadTextures("img/wall.png");
 				textureArray["disc1"] = loadTextures("img/disk_blue.png");
-				textureArray["disc2"] = loadTextures("img/disk_blue.png");
-				textureArray["disc3"] = loadTextures("img/disk_blue.png");
-				textureArray["disc4"] = loadTextures("img/disk_blue.png");
-				textureArray["disc5"] = loadTextures("img/disk_blue.png");
+				textureArray["disc2"] = loadTextures("img/disk_red.png");
+				textureArray["disc3"] = loadTextures("img/disk_green.png");
+				textureArray["disc4"] = loadTextures("img/disk_yellow.png");
+				textureArray["disc5"] = loadTextures("img/disk_purple.png");
 			}
 			
 			function loadTextures(texture_location) {
