@@ -1125,9 +1125,6 @@
 				drawScene();
 				animate();
 
-				var mystring = "X: " + xPos + ", Z: " + zPos;
-				document.getElementById("coords").innerHTML = mystring;
-
 				//pick up discs
 				if( (xPos > d1[0] && xPos < (d1[0] + 1)) && (zPos < -d1[1] && zPos > -(d1[1] + 1)) )
 				{
