@@ -290,7 +290,7 @@
 
 			var xPos = 5;
 			var yPos = 0.4;
-			var zPos = -1;
+			var zPos = 2;
 
 			var speed = 0;
 
