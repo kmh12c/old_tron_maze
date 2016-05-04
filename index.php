@@ -288,7 +288,7 @@
 			var yaw = 0;
 			var yawRate = 0;
 
-			var xPos = 5;
+			var xPos = 4.5;
 			var yPos = 0.4;
 			var zPos = 2;
 
