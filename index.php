@@ -4,9 +4,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>TRON MAZE 3D</title>
 
-
-		
-
 		<style type="text/css">
 			#loadingtext {
 				position:absolute;
@@ -54,14 +51,15 @@
 		</audio>
 
 		<script>
-		function aud_play_pause() {
-		var myAudio = document.getElementById("myAudio");
-		if (myAudio.paused) {
-			myAudio.play();
-		} else {
-			myAudio.pause();
-		}
-		}
+			function aud_play_pause() {
+				var myAudio = document.getElementById("myAudio");
+				if (myAudio.paused) {
+					myAudio.play();
+				} 
+				else {
+					myAudio.pause();
+				}
+			}
 		</script>
 
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
@@ -690,17 +688,17 @@
 				worldVertexTextureCoordBuffer.numItems = vertexCount;
 
 				//FLOOR
-				// worldVertexPositionBufferFLOOR = gl.createBuffer();
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
-				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsFLOOR), gl.STATIC_DRAW);
-				// worldVertexPositionBufferFLOOR.itemSize = 3;
-				// worldVertexPositionBufferFLOOR.numItems = vertexCountFLOOR;
+				worldVertexPositionBufferFLOOR = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsFLOOR), gl.STATIC_DRAW);
+				worldVertexPositionBufferFLOOR.itemSize = 3;
+				worldVertexPositionBufferFLOOR.numItems = vertexCountFLOOR;
 
-				// worldVertexTextureCoordBufferFLOOR = gl.createBuffer();
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
-				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsFLOOR), gl.STATIC_DRAW);
-				// worldVertexTextureCoordBufferFLOOR.itemSize = 2;
-				// worldVertexTextureCoordBufferFLOOR.numItems = vertexCountFLOOR;
+				worldVertexTextureCoordBufferFLOOR = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsFLOOR), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferFLOOR.itemSize = 2;
+				worldVertexTextureCoordBufferFLOOR.numItems = vertexCountFLOOR;
 
 				document.getElementById("loadingtext").textContent = "";
 			}
@@ -710,30 +708,30 @@
 				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 				//FLOOR
-				// if (worldVertexTextureCoordBufferFLOOR == null || worldVertexPositionBufferFLOOR == null) {
-				// 	return;
-				// }
+				if (worldVertexTextureCoordBufferFLOOR == null || worldVertexPositionBufferFLOOR == null) {
+					return;
+				}
 
-				// mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 
-				// mat4.identity(mvMatrix);
+				mat4.identity(mvMatrix);
 
-				// mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
-				// mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
-				// mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
+				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
+				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
+				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
-				// gl.activeTexture(gl.TEXTURE0);
-				// gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
-				// gl.uniform1i(shaderProgram.samplerUniform2, 0);
+				gl.activeTexture(gl.TEXTURE0);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
+				gl.uniform1i(shaderProgram.samplerUniform2, 0);
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
-				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
-				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
 
-				// setMatrixUniforms();
-				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
 				//WALL
 				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
