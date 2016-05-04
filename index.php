@@ -68,7 +68,7 @@
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
 
-		<canvas id="canvas" style="border: none;" width="1200" height="600"></canvas>
+		<canvas id="canvas" style="border: none;" width="1200" height="550"></canvas>
 		
 		<div id="loadingtext"></div>
 		
@@ -288,8 +288,8 @@
 			var yaw = 0;
 			var yawRate = 0;
 
-			var xPos = 0;
-			var yPos = 0.4;
+			var xPos = 5;
+			var yPos = -1;
 			var zPos = 0;
 
 			var speed = 0;
