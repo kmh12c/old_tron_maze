@@ -29,12 +29,6 @@
 				display: none;
 			}
 
-			canvas {
-				border: none;
-				width: 1300;
-				height: 800;
-			}
-
 		</style>
 		<script>
 	
@@ -74,7 +68,7 @@
 		<br/><br/>
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
 
-		<canvas id="canvas"></canvas>
+		<canvas id="canvas" style="border: none; width: 1300; height: 800;"></canvas>
 		
 		<div id="loadingtext"></div>
 		
