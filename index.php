@@ -127,6 +127,10 @@
 				timePoint : 0
 			}
 
+			var vertexCount = 0;
+			var vertexPositions = [];
+			var vertexTextureCoords = [];
+
 			var gl;
 
 			function initGL(canvas) {
@@ -351,11 +355,7 @@
 				request.send();
 			}
 
-			
 			function handleLoadedWorld(data) {
-				var vertexCount = 0;
-				var vertexPositions = [];
-				var vertexTextureCoords = [];
 				var vertexCountFLOOR = 0;
 				var vertexPositionsFLOOR = [];
 				var vertexTextureCoordsFLOOR = [];
@@ -697,7 +697,6 @@
 				worldVertexTextureCoordBufferFLOOR.itemSize = 2;
 				worldVertexTextureCoordBufferFLOOR.numItems = vertexCountFLOOR;
 
-				document.getElementById("loadingtext").textContent = "";
 			}
 			
 			function drawScene() {
@@ -770,8 +769,19 @@
 					var elapsed = timeNow - lastTime;
 
 					if (speed != 0) {
-						xPos -= Math.sin(degToRad(yaw)) * speed * elapsed;
-						zPos -= Math.cos(degToRad(yaw)) * speed * elapsed;
+
+						for(int i = 0; i < vertexPositions.length - 3; i += 3)
+						{
+							checkX = xPos - Math.sin(degToRad(yaw)) * speed * elapsed;
+							checkZ = zPos - Math.sin(degToRad(yaw)) * speed * elapsed
+							if( (checkX == vertexPositions[i]) && (checkZ > vertexPositions[i+2] && checkZ < vertexPositions[i+5]) || (checkZ == vertexPositions[i+2]) && (checkX > vertexPositions[i] && checkX < vertexPositions[i+3]) )
+							{}
+							else 
+							{
+								xPos -= Math.sin(degToRad(yaw)) * speed * elapsed;
+								zPos -= Math.cos(degToRad(yaw)) * speed * elapsed;
+							}
+						}
 
 						joggingAngle += elapsed * 0.6; // 0.6 "fiddle factor" - makes it feel more realistic :)
 						yPos = Math.sin(degToRad(joggingAngle)) / 20 + 0.4
