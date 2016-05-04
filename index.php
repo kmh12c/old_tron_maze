@@ -184,7 +184,7 @@
 			var lastTime = 0;
 			var joggingAngle = 0; // Used to make us "jog" up and down as we move forward.
 			var currentDisc = "none"; //will hold the color of the disc that we have "picked up" last
-			var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
+			var d1 = [4.2,2.7], d2 = [6.5,8.5], d3 = [10.4,10.5], d4 = [2.6,3.3], d5 = [2.4,7.8];
 
 			function initGL(canvas) {
 				try {
