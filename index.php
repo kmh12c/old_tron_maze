@@ -781,8 +781,6 @@
 							vertexCountFLOOR += 3;
 					}
 				}
-					}
-				}
 
 				//WALL
 				worldVertexPositionBuffer = gl.createBuffer();
