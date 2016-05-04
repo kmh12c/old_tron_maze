@@ -163,11 +163,20 @@
 			var worldVertexTextureCoordBufferFLOOR = null;
 			var worldVertexPositionBufferDISC1 = null;
 			var worldVertexTextureCoordBufferDISC1 = null;
+			var worldVertexPositionBufferDISC2 = null;
+			var worldVertexTextureCoordBufferDISC2 = null;
+			var worldVertexPositionBufferDISC3 = null;
+			var worldVertexTextureCoordBufferDISC3 = null;
+			var worldVertexPositionBufferDISC4 = null;
+			var worldVertexTextureCoordBufferDISC4 = null;
+			var worldVertexPositionBufferDISC5 = null;
+			var worldVertexTextureCoordBufferDISC5 = null;
 
 			var maze = "";
 
 			var lastTime = 0;
 			var joggingAngle = 0; // Used to make us "jog" up and down as we move forward.
+			var currentDisc = "none"; //will hold the color of the disc that we have "picked up" last
 
 			function initGL(canvas) {
 				try {
@@ -637,24 +646,25 @@
 					}
 				}
 
+				var d1 = [4,2], d2 = [6,8], d3 = [10,10], d4 = [2,3], d5 = [2,7];
 				//============================
 				//		Triangle 1 - DISC1
 				//============================
-				vertexPositionsDISC1.push(parseFloat(4)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(4)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
+				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(4+1)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0]+1)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
+				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
@@ -663,25 +673,209 @@
 				//============================
 				//		Triangle 2 - DISC1
 				//============================
-				vertexPositionsDISC1.push(parseFloat(4)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0])); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(4+1)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0]+1)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
+				vertexPositionsDISC1.push(parseFloat((d1[1]*-1)-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				vertexPositionsDISC1.push(parseFloat(4+1)); // X
+				vertexPositionsDISC1.push(parseFloat(d1[0]+1)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
-				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
+				vertexPositionsDISC1.push(parseFloat(d1[1]*-1)); // Z
 				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
 				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
 				vertexCountDISC1 += 3;
+
+				//============================
+				//		Triangle 1 - DISC2
+				//============================
+				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
+				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
+				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
+				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
+				
+				vertexPositionsDISC2.push(parseFloat(d2[0]+1)); // X
+				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
+				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC2 += 3;
+				
+				//============================
+				//		Triangle 2 - DISC2
+				//============================
+				vertexPositionsDISC2.push(parseFloat(d2[0])); // X
+				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC2.push(parseFloat(d2[0]+1)); // X
+				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat((d2[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC2.push(parseFloat(d2[0]+1)); // X
+				vertexPositionsDISC2.push(parseFloat(0)); // Y
+				vertexPositionsDISC2.push(parseFloat(d2[1]*-1)); // Z
+				vertexTextureCoordsDISC2.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC2.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC2 += 3;
+
+				//============================
+				//		Triangle 1 - DISC3
+				//============================
+				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
+				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
+				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
+				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
+				
+				vertexPositionsDISC3.push(parseFloat(d3[0]+1)); // X
+				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
+				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC3 += 3;
+				
+				//============================
+				//		Triangle 2 - DISC3
+				//============================
+				vertexPositionsDISC3.push(parseFloat(d3[0])); // X
+				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC3.push(parseFloat(d3[0]+1)); // X
+				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat((d3[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC3.push(parseFloat(d3[0]+1)); // X
+				vertexPositionsDISC3.push(parseFloat(0)); // Y
+				vertexPositionsDISC3.push(parseFloat(d3[1]*-1)); // Z
+				vertexTextureCoordsDISC3.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC3.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC3 += 3;
+
+				//============================
+				//		Triangle 1 - DISC4
+				//============================
+				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
+				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
+				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
+				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
+				
+				vertexPositionsDISC4.push(parseFloat(d4[0]+1)); // X
+				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
+				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC4 += 3;
+				
+				//============================
+				//		Triangle 2 - DISC4
+				//============================
+				vertexPositionsDISC4.push(parseFloat(d4[0])); // X
+				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC4.push(parseFloat(d4[0]+1)); // X
+				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat((d4[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // V
+			
+				vertexPositionsDISC4.push(parseFloat(d4[0]+1)); // X
+				vertexPositionsDISC4.push(parseFloat(0)); // Y
+				vertexPositionsDISC4.push(parseFloat(d4[1]*-1)); // Z
+				vertexTextureCoordsDISC4.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC4.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC4 += 3;
+
+				//============================
+				//		Triangle 1 - DISC5
+				//============================
+				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
+				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
+				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
+				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
+				
+				vertexPositionsDISC5.push(parseFloat(d5[0]+1)); // X
+				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
+				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC5 += 3;
+				
+				//============================
+				//		Triangle 2 - DISC5
+				//============================
+				vertexPositionsDISC5.push(parseFloat(d5[0])); // X
+				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
+				
+				vertexPositionsDISC5.push(parseFloat(d5[0]+1)); // X
+				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat((d5[1]*-1)-1)); // Z
+				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // V
+			
+				vertexPositionsDISC5.push(parseFloat(d5[0]+1)); // X
+				vertexPositionsDISC5.push(parseFloat(0)); // Y
+				vertexPositionsDISC5.push(parseFloat(d5[1]*-1)); // Z
+				vertexTextureCoordsDISC5.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC5.push(parseFloat(0.0)); // V
+				
+				vertexCountDISC5 += 3;
 
 				//WALL
 				worldVertexPositionBuffer = gl.createBuffer();
@@ -721,6 +915,58 @@
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC1), gl.STATIC_DRAW);
 				worldVertexTextureCoordBufferDISC1.itemSize = 2;
 				worldVertexTextureCoordBufferDISC1.numItems = vertexCountDISC1;
+
+				//DISC2
+				worldVertexPositionBufferDISC2 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC2);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC2), gl.STATIC_DRAW);
+				worldVertexPositionBufferDISC2.itemSize = 3;
+				worldVertexPositionBufferDISC2.numItems = vertexCountDISC2;
+
+				worldVertexTextureCoordBufferDISC2 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC2);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC2), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferDISC2.itemSize = 2;
+				worldVertexTextureCoordBufferDISC2.numItems = vertexCountDISC2;
+
+				//DISC3
+				worldVertexPositionBufferDISC3 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC3);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC3), gl.STATIC_DRAW);
+				worldVertexPositionBufferDISC3.itemSize = 3;
+				worldVertexPositionBufferDISC3.numItems = vertexCountDISC3;
+
+				worldVertexTextureCoordBufferDISC3 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC3);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC3), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferDISC3.itemSize = 2;
+				worldVertexTextureCoordBufferDISC3.numItems = vertexCountDISC3;
+
+				//DISC4
+				worldVertexPositionBufferDISC4 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC4);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC4), gl.STATIC_DRAW);
+				worldVertexPositionBufferDISC4.itemSize = 3;
+				worldVertexPositionBufferDISC4.numItems = vertexCountDISC4;
+
+				worldVertexTextureCoordBufferDISC4 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC4);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC4), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferDISC4.itemSize = 2;
+				worldVertexTextureCoordBufferDISC4.numItems = vertexCountDISC1;
+
+				//DISC5
+				worldVertexPositionBufferDISC5 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC5);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC5), gl.STATIC_DRAW);
+				worldVertexPositionBufferDISC5.itemSize = 3;
+				worldVertexPositionBufferDISC5.numItems = vertexCountDISC5;
+
+				worldVertexTextureCoordBufferDISC5 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC5);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC5), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferDISC5.itemSize = 2;
+				worldVertexTextureCoordBufferDISC5.numItems = vertexCountDISC5;
 			}
 			
 			function drawScene() {
@@ -728,66 +974,80 @@
 				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 				//FLOOR
-				if (worldVertexTextureCoordBufferFLOOR == null || worldVertexPositionBufferFLOOR == null) {
-					return;
-				}
-
 				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-
 				mat4.identity(mvMatrix);
-
 				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
 				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
 				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
-				
 				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["floor"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
-
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferFLOOR);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
-
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferFLOOR);
 				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferFLOOR.itemSize, gl.FLOAT, false, 0, 0);
-
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferFLOOR.numItems);
 				
 				//WALL
-				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
-					return;
-				}
-				
-				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
-
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
 				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 
-				//discs
-				if (worldVertexTextureCoordBufferDISC1 == null || worldVertexPositionBufferDISC1 == null) {
-					return;
-				}
-				
-				gl.activeTexture(gl.TEXTURE0);
+				//disc1
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
-
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
 				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
-
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
 				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
-
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
+
+				//disc2
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc2"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC2);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC2);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC2.numItems);
+
+				//disc3
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc3"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC3);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC3);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC3.numItems);
+
+				//disc4
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc4"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC4);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC4);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC4.numItems);
+
+				//disc5
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc5"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC5);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC5);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC5.numItems);
 
 			}
 
