@@ -31,8 +31,8 @@
 
 			#beta {
 				position: absolute;
-				left: 0px;
-				top: 0px;
+				left: 7px;
+				top: 115px;
 				z-index: 0;
 			}
 			
@@ -79,7 +79,7 @@
 			</label>
 
 		<br/><br/>
-		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/>
+		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/><br/><br/>
 
 		<canvas id="canvas" style="border: none;" width="1200" height="550"></canvas>
 		
@@ -120,7 +120,6 @@
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 
-
 			varying vec2 vTextureCoord;
 
 			void main(void) {
@@ -139,10 +138,6 @@
 				accel : 9.8,
 				timePoint : 0
 			}
-
-			var vertexCount = 0;
-			var vertexPositions = [];
-			var vertexTextureCoords = [];
 
 			var gl;
 
@@ -240,6 +235,11 @@
 			function initTextures() {
 				textureArray["floor"] = loadTextures("img/floor.png");
 				textureArray["wall"] = loadTextures("img/wall.png");
+				textureArray["disc1"] = loadTextures("img/health100.png");
+				textureArray["disc2"] = loadTextures("img/health80.png");
+				textureArray["disc3"] = loadTextures("img/health60.png");
+				textureArray["disc4"] = loadTextures("img/health40.png");
+				textureArray["disc5"] = loadTextures("img/health20.png");
 			}
 			
 			function loadTextures(texture_location) {
@@ -368,7 +368,11 @@
 				request.send();
 			}
 
+			
 			function handleLoadedWorld(data) {
+				var vertexCount = 0;
+				var vertexPositions = [];
+				var vertexTextureCoords = [];
 				var vertexCountFLOOR = 0;
 				var vertexPositionsFLOOR = [];
 				var vertexTextureCoordsFLOOR = [];
@@ -746,14 +750,6 @@
 				if (worldVertexTextureCoordBuffer == null || worldVertexPositionBuffer == null) {
 					return;
 				}
-
-				mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-
-				mat4.identity(mvMatrix);
-
-				mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
-				mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
-				mat4.translate(mvMatrix, [-xPos, -yPos-jump.hPos, -zPos]);
 				
 				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
@@ -767,6 +763,21 @@
 
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+
+				//discs
+				// gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
+				// gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+				// setMatrixUniforms();
+				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+
+
 			}
 			
 			
@@ -782,28 +793,8 @@
 					var elapsed = timeNow - lastTime;
 
 					if (speed != 0) {
-
-						var move;
-						for(var i = 0; i < vertexPositions.length - 3; i += 3)
-						{
-							checkX = xPos - Math.sin(degToRad(yaw)) * speed * elapsed;
-							checkZ = zPos - Math.sin(degToRad(yaw)) * speed * elapsed
-							if( (checkX == vertexPositions[i]) && (checkZ > vertexPositions[i+2] && checkZ < vertexPositions[i+5]) || (checkZ == vertexPositions[i+2]) && (checkX > vertexPositions[i] && checkX < vertexPositions[i+3]) )
-							{
-								move = false;
-								alert("YOU CAN'T MOVE HERE");
-							}
-							else 
-							{
-								move = true;
-							}
-						}
-
-						if(move)
-						{
-							xPos -= Math.sin(degToRad(yaw)) * speed * elapsed;
-							zPos -= Math.cos(degToRad(yaw)) * speed * elapsed;	
-						}
+						xPos -= Math.sin(degToRad(yaw)) * speed * elapsed;
+						zPos -= Math.cos(degToRad(yaw)) * speed * elapsed;
 
 						joggingAngle += elapsed * 0.6; // 0.6 "fiddle factor" - makes it feel more realistic :)
 						yPos = Math.sin(degToRad(joggingAngle)) / 20 + 0.4
