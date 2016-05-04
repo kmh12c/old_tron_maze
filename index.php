@@ -350,7 +350,6 @@
 				} else {
 					speed = 0;
 				}
-
 			}
 			
 			function loadWorld() {
@@ -987,6 +986,62 @@
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC5), gl.STATIC_DRAW);
 				worldVertexTextureCoordBufferDISC5.itemSize = 2;
 				worldVertexTextureCoordBufferDISC5.numItems = vertexCountDISC5;
+
+				//pick up discs
+				if( (xPos > d1[0] && xPos < d1[0] + 1) && (zPos > d1[1] && zPos < d1[1] + 1) )
+				{
+					currentDisc = "blue";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "initial";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d2[0] && xPos < d2[0] + 1) && (zPos > d2[1] && zPos < d2[1] + 1) )
+				{
+					currentDisc = "red";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "initial";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d3[0] && xPos < d3[0] + 1) && (zPos > d3[1] && zPos < d3[1] + 1) )
+				{
+					currentDisc = "green";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "initial";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d4[0] && xPos < d4[0] + 1) && (zPos > d4[1] && zPos < d4[1] + 1) )
+				{
+					currentDisc = "yellow";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "initial";
+					document.getElementById("purple").display = "none";
+				}
+
+				if( (xPos > d5[0] && xPos < d5[0] + 1) && (zPos > d5[1] && zPos < d5[1] + 1) )
+				{
+					currentDisc = "purple";
+					document.getElementById("none").display = "none";
+					document.getElementById("blue").display = "none";
+					document.getElementById("red").display = "none";
+					document.getElementById("green").display = "none";
+					document.getElementById("yellow").display = "none";
+					document.getElementById("purple").display = "initial";
+				}
 			}
 			
 			function drawScene() {
@@ -1019,56 +1074,70 @@
 				setMatrixUniforms();
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 
-				//disc1
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
+				if(currentDisc != "blue")
+				{
+					//disc1
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
+				}
 
-				//disc2
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc2"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC2);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC2);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC2.numItems);
+				if(currentDisc != "red")
+				{
+					//disc2
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc2"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC2);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC2);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC2.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC2.numItems);
+				}
 
-				//disc3
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc3"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC3);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC3);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC3.numItems);
+				if(currentDisc != "green")
+				{
+					//disc3
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc3"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC3);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC3);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC3.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC3.numItems);
+				}
 
-				//disc4
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc4"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC4);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC4);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC4.numItems);
+				if(currentDisc != "yellow")
+				{
+					//disc4
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc4"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC4);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC4);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC4.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC4.numItems);
+				}
 
-				//disc5
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc5"]);
-				gl.uniform1i(shaderProgram.samplerUniform, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC5);
-				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
-				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC5);
-				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
-				setMatrixUniforms();
-				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC5.numItems);
-
+				if(currentDisc != "purple")
+				{
+					//disc5
+					gl.bindTexture(gl.TEXTURE_2D, textureArray["disc5"]);
+					gl.uniform1i(shaderProgram.samplerUniform, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC5);
+					gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
+					gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC5);
+					gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC5.itemSize, gl.FLOAT, false, 0, 0);
+					setMatrixUniforms();
+					gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC5.numItems);
+				}
 			}
 
 			function animate() {
