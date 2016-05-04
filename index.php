@@ -295,14 +295,15 @@
 			var currentlyPressedKeys = {};
 
 			function handleKeyDown(event) {
-				event.preventDefault();
 				currentlyPressedKeys[event.keyCode] = true;
-				if (event.keyCode==32) jump.isPerforming = true;
+				if (event.keyCode==32) {
+					event.preventDefault();
+					jump.isPerforming = true;
+				}
 			}
 
 
 			function handleKeyUp(event) {
-				event.preventDefault();
 				currentlyPressedKeys[event.keyCode] = false;
 			}
 
@@ -330,20 +331,20 @@
 					pitchRate = 0;
 				}
 
-				if (currentlyPressedKeys[37] || currentlyPressedKeys[65]) {
-					// Left cursor key or A
+				if (currentlyPressedKeys[37]) {
+					// Left cursor key
 					yawRate = 0.15;
-				} else if (currentlyPressedKeys[39] || currentlyPressedKeys[68]) {
-					// Right cursor key or D
+				} else if (currentlyPressedKeys[39]) {
+					// Right cursor key
 					yawRate = -0.15;
 				} else {
 					yawRate = 0;
 				}
 
-				if (currentlyPressedKeys[38] || currentlyPressedKeys[87]) {
-					// Up cursor key or W
+				if (currentlyPressedKeys[38]) {
+					// Up cursor key
 					speed = 0.003;
-				} else if (currentlyPressedKeys[40] || currentlyPressedKeys[83]) {
+				} else if (currentlyPressedKeys[40]) {
 					// Down cursor key
 					speed = -0.003;
 				} else {
