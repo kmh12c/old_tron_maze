@@ -31,17 +31,16 @@
 
 			canvas {
 				border: none;
-				/*width: 1200;*/
-				/*height: 800;*/
+				width: 1280px;
+				height: 720px;
 			}
 
 		</style>
 		<script>
 
 			function initCanvas() {
-				canvas = document.getElementById("canvas");
-   				canvas.width = window.innerWidth;
-    			// canvas.height = auto;
+				//canvas = document.getElementById("canvas");
+   				//canvas.width = window.innerWidth;
 			}
 	
     	</script>
