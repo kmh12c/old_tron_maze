@@ -3,7 +3,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>TRON MAZE 3D</title>
-
 		<style type="text/css">
 			#loadingtext {
 				position:absolute;
@@ -48,11 +47,7 @@
 			}
 			
 		</style>
-		<script>
-	
-    	</script>
 	</head>
-
 	<body onload="webGLStart();">
 		<audio id="myAudio" autoplay="autoplay">
 			<source src="music/flynn.ogg" type="audio/ogg">
@@ -73,7 +68,6 @@
 		</script>
 
 		<img src="img/logo.png" alt="logo.png" title="Tron Maze Logo">
-		
 		<img src="img/beta.png" id="beta" alt="beta.png" title="Beta">
 		<img src="img/back2.png" id="back" alt="back.png" title="Back">
 				
@@ -90,25 +84,19 @@
 		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/><br/><br/>
 
 		<canvas id="canvas" style="border: none;" width="1200" height="580"></canvas>
-		
 		<div id="loadingtext"></div>
-		
 		<div id="mazeContents">
 			&nbsp;
 		</div>
-
 		<script type="text/javascript" src="js/glMatrix-0.9.5.min.js"></script>
 		<script type="text/javascript" src="js/webgl-utils.js"></script>
-
 		<script type="text/javascript" src="js/decomp.js"></script>
-		
 		<script type="text/javascript" src="js/glge-compiled-min.js"></script>
 		<script type="text/javascript" src="js/glge_flycamera.js"></script>
 		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.7.custom.min.js"></script>
 		<script type="text/javascript" src="js/export.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
-
 		<script id="shader-fs" type="x-shader/x-fragment">
 			precision mediump float;
 
@@ -120,7 +108,6 @@
 				gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
 			}
 		</script>
-
 		<script id="shader-vs" type="x-shader/x-vertex">
 			attribute vec3 aVertexPosition;
 			attribute vec2 aTextureCoord;
@@ -135,8 +122,6 @@
 				vTextureCoord = aTextureCoord;
 			}
 		</script>
-
-
 		<script type="text/javascript">
 		
 			var jump = {
@@ -148,6 +133,35 @@
 			}
 
 			var gl;
+			var shaderProgram;
+			var textureArray = new Array();
+
+			var mvMatrix = mat4.create();
+			var mvMatrixStack = [];
+			var pMatrix = mat4.create();
+
+			var currentlyPressedKeys = {};
+
+			var pitch = 0;
+			var pitchRate = 0;
+			var yaw = 0;
+			var yawRate = 0;
+			var xPos = 4.5;
+			var yPos = 0.4;
+			var zPos = 2;
+			var speed = 0;
+
+			var worldVertexPositionBuffer = null;
+			var worldVertexTextureCoordBuffer = null;
+			var worldVertexPositionBufferFLOOR = null;
+			var worldVertexTextureCoordBufferFLOOR = null;
+			var worldVertexPositionBufferDISC1 = null;
+			var worldVertexTextureCoordBufferDISC1 = null;
+
+			var maze = "";
+
+			var lastTime = 0;
+			var joggingAngle = 0; // Used to make us "jog" up and down as we move forward.
 
 			function initGL(canvas) {
 				try {
@@ -160,7 +174,6 @@
 					alert("Could not initialise WebGL, sorry :-(");
 				}
 			}
-
 
 			function getShader(gl, id) {
 				var shaderScript = document.getElementById(id);
@@ -197,9 +210,6 @@
 				return shader;
 			}
 
-
-			var shaderProgram;
-
 			function initShaders() {
 				var fragmentShader = getShader(gl, "shader-fs");
 				var vertexShader = getShader(gl, "shader-vs");
@@ -226,7 +236,6 @@
 				shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
 			}
 
-
 			function handleLoadedTexture(texture) {
 				gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 				gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -237,35 +246,24 @@
 				gl.bindTexture(gl.TEXTURE_2D, null);
 			}
 
-
-			var textureArray = new Array();
-
 			function initTextures() {
 				textureArray["floor"] = loadTextures("img/floor.png");
 				textureArray["wall"] = loadTextures("img/wall.png");
-				textureArray["disc1"] = loadTextures("img/health100.png");
-				// textureArray["disc2"] = loadTextures("img/health80.png");
-				// textureArray["disc3"] = loadTextures("img/health60.png");
-				// textureArray["disc4"] = loadTextures("img/health40.png");
-				// textureArray["disc5"] = loadTextures("img/health20.png");
+				textureArray["disc1"] = loadTextures("img/disk_blue.png");
+				textureArray["disc2"] = loadTextures("img/disk_blue.png");
+				textureArray["disc3"] = loadTextures("img/disk_blue.png");
+				textureArray["disc4"] = loadTextures("img/disk_blue.png");
+				textureArray["disc5"] = loadTextures("img/disk_blue.png");
 			}
 			
 			function loadTextures(texture_location) {
 				var texture = gl.createTexture();
 				texture.image = new Image();
-				texture.image.onload = function () {
-					handleLoadedTexture(texture)
-				}
+				texture.image.onload = function () { handleLoadedTexture(texture); }
 
 				texture.image.src = texture_location;
-				
 				return texture;
 			}
-
-
-			var mvMatrix = mat4.create();
-			var mvMatrixStack = [];
-			var pMatrix = mat4.create();
 
 			function mvPushMatrix() {
 				var copy = mat4.create();
@@ -274,50 +272,30 @@
 			}
 
 			function mvPopMatrix() {
-				if (mvMatrixStack.length == 0) {
-					throw "Invalid popMatrix!";
-				}
+				if (mvMatrixStack.length == 0) { throw "Invalid popMatrix!"; }
 				mvMatrix = mvMatrixStack.pop();
 			}
-
 
 			function setMatrixUniforms() {
 				gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
 				gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
 			}
 
-
 			function degToRad(degrees) {
 				return degrees * Math.PI / 180;
 			}
 
-
-			var currentlyPressedKeys = {};
-
 			function handleKeyDown(event) {
-				event.preventDefault();
 				currentlyPressedKeys[event.keyCode] = true;
-				if (event.keyCode==32) jump.isPerforming = true;
+				if (event.keyCode==32) {
+					event.preventDefault();
+					jump.isPerforming = true;
+				}
 			}
-
 
 			function handleKeyUp(event) {
-				event.preventDefault();
 				currentlyPressedKeys[event.keyCode] = false;
 			}
-
-
-			var pitch = 0;
-			var pitchRate = 0;
-
-			var yaw = 0;
-			var yawRate = 0;
-
-			var xPos = 4.5;
-			var yPos = 0.4;
-			var zPos = 2;
-
-			var speed = 0;
 
 			function handleKeys() {
 				if (currentlyPressedKeys[33]) {
@@ -330,20 +308,20 @@
 					pitchRate = 0;
 				}
 
-				if (currentlyPressedKeys[37] || currentlyPressedKeys[65]) {
-					// Left cursor key or A
+				if (currentlyPressedKeys[37]) {
+					// Left cursor key
 					yawRate = 0.15;
-				} else if (currentlyPressedKeys[39] || currentlyPressedKeys[68]) {
-					// Right cursor key or D
+				} else if (currentlyPressedKeys[39]) {
+					// Right cursor key
 					yawRate = -0.15;
 				} else {
 					yawRate = 0;
 				}
 
-				if (currentlyPressedKeys[38] || currentlyPressedKeys[87]) {
-					// Up cursor key or W
+				if (currentlyPressedKeys[38]) {
+					// Up cursor key
 					speed = 0.003;
-				} else if (currentlyPressedKeys[40] || currentlyPressedKeys[83]) {
+				} else if (currentlyPressedKeys[40]) {
 					// Down cursor key
 					speed = -0.003;
 				} else {
@@ -351,17 +329,6 @@
 				}
 
 			}
-
-
-			var worldVertexPositionBuffer = null;
-			var worldVertexTextureCoordBuffer = null;
-			var worldVertexPositionBufferFLOOR = null;
-			var worldVertexTextureCoordBufferFLOOR = null;
-			var worldVertexPositionBufferDISC1 = null;
-			var worldVertexTextureCoordBufferDISC1 = null;
-
-			
-			var maze = "";
 			
 			function loadWorld() {
 				var request = new XMLHttpRequest();
@@ -378,7 +345,6 @@
 				request.send();
 			}
 
-			
 			function handleLoadedWorld(data) {
 				var vertexCount = 0;
 				var vertexPositions = [];
@@ -394,23 +360,17 @@
 				{
 					for(var j=0; j < maze["c"]; j++)
 					{
-						currentTile=maze[i][j];
-						
 						//============================
-						//
 						//			Front
-						//
 						//============================
 						if(i==maze["r"]-1 || (maze[i][j]["p"] == "true" && maze[i+1][j]["p"] == "false") || (maze[i][j]["p"] == "false" && maze[i+1][j]["p"] == "true"))
 						{
-							if(i==maze["r"]-1 && typeof maze[i][j]["l"] !== 'undefined') //link to the next map, don't draw exit.
+							if(i==maze["r"]-1 && typeof maze[i][j]["l"] !== 'undefined') //link to the next map, don't draw exit
 							{ }
 							else
 							{
 							//============================
-							//
 							//			Triangle 1
-							//
 							//============================
 							vertexPositions.push(parseFloat(j)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -433,9 +393,7 @@
 							vertexCount += 3;
 							
 							//============================
-							//
 							//			Triangle 2
-							//
 							//============================
 							vertexPositions.push(parseFloat(j)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -460,16 +418,12 @@
 						}
 						
 						//============================
-						//
 						//			Left
-						//
 						//============================
 						if(j==0 && typeof maze[i][j]["l"] === 'undefined')
 						{
 							//============================
-							//
 							//			Triangle 1
-							//
 							//============================
 							vertexPositions.push(parseFloat(j)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -492,9 +446,7 @@
 							vertexCount += 3;
 							
 							//============================
-							//
 							//			Triangle 2
-							//
 							//============================
 							vertexPositions.push(parseFloat(j)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -519,16 +471,12 @@
 						}
 						
 						//============================
-						//
 						//			Back
-						//
 						//============================
 						if(i==0 && typeof maze[i][j]["l"] === 'undefined') 
 						{
 							//============================
-							//
 							//			Triangle 1
-							//
 							//============================
 							vertexPositions.push(parseFloat(j)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -551,9 +499,7 @@
 							vertexCount += 3;
 							
 							//============================
-							//
 							//			Triangle 2
-							//
 							//============================
 							vertexPositions.push(parseFloat(j)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -576,22 +522,17 @@
 							vertexCount += 3;
 						}
 
-						
 						//============================
-						//
 						//			Right
-						//
 						//============================
 						if(j==maze["c"]-1 || (maze[i][j]["p"] == "true" && maze[i][j+1]["p"] == "false") || (maze[i][j]["p"] == "false" && maze[i][j+1]["p"] == "true"))
 						{
-							if(j==maze["c"]-1 && typeof maze[i][j]["l"] !== 'undefined') //link to the next map, don't draw exit.
+							if(j==maze["c"]-1 && typeof maze[i][j]["l"] !== 'undefined') //link to the next map, don't draw exit
 							{ }
 							else
 							{
 							//============================
-							//
 							//			Triangle 1
-							//
 							//============================
 							vertexPositions.push(parseFloat(j+1)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -614,9 +555,7 @@
 							vertexCount += 3;
 							
 							//============================
-							//
 							//			Triangle 2
-							//
 							//============================
 							vertexPositions.push(parseFloat(j+1)); // X
 							vertexPositions.push(parseFloat(1)); // Y
@@ -639,18 +578,13 @@
 							vertexCount += 3;
 							}
 						}
-
 			
 						//============================
-						//
 						//			Bottom
-						//
 						//============================	
 
 							//============================
-							//
 							//			Triangle 1
-							//
 							//============================
 							vertexPositionsFLOOR.push(parseFloat(j)); // X
 							vertexPositionsFLOOR.push(parseFloat(0)); // Y
@@ -673,9 +607,7 @@
 							vertexCountFLOOR += 3;
 							
 							//============================
-							//
 							//			Triangle 2
-							//
 							//============================
 							vertexPositionsFLOOR.push(parseFloat(j)); // X
 							vertexPositionsFLOOR.push(parseFloat(0)); // Y
@@ -699,56 +631,51 @@
 					}
 				}
 
-				// //============================
-				// //
-				// //			Triangle 1 - DISC1
-				// //
-				// //============================
-				// vertexPositionsDISC1.push(parseFloat(4)); // X
-				// vertexPositionsDISC1.push(parseFloat(0)); // Y
-				// vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
-				// vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
-				// vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
+				//============================
+				//		Triangle 1 - DISC1
+				//============================
+				vertexPositionsDISC1.push(parseFloat(4)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				// vertexPositionsDISC1.push(parseFloat(4)); // X
-				// vertexPositionsDISC1.push(parseFloat(0)); // Y
-				// vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
-				// vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
-				// vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
+				vertexPositionsDISC1.push(parseFloat(4)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
-				// vertexPositionsDISC1.push(parseFloat(4+1)); // X
-				// vertexPositionsDISC1.push(parseFloat(0)); // Y
-				// vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
-				// vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
-				// vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
+				vertexPositionsDISC1.push(parseFloat(4+1)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
-				// vertexCountDISC1 += 3;
+				vertexCountDISC1 += 3;
 				
-				// //============================
-				// //
-				// //			Triangle 2 - DISC1
-				// //
-				// //============================
-				// vertexPositionsDISC1.push(parseFloat(4)); // X
-				// vertexPositionsDISC1.push(parseFloat(0)); // Y
-				// vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
-				// vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
-				// vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
+				//============================
+				//		Triangle 2 - DISC1
+				//============================
+				vertexPositionsDISC1.push(parseFloat(4)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				// vertexPositionsDISC1.push(parseFloat(4+1)); // X
-				// vertexPositionsDISC1.push(parseFloat(0)); // Y
-				// vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
-				// vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
-				// vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
+				vertexPositionsDISC1.push(parseFloat(4+1)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat((2*-1)-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
-				// vertexPositionsDISC1.push(parseFloat(4+1)); // X
-				// vertexPositionsDISC1.push(parseFloat(0)); // Y
-				// vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
-				// vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
-				// vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
+				vertexPositionsDISC1.push(parseFloat(4+1)); // X
+				vertexPositionsDISC1.push(parseFloat(0)); // Y
+				vertexPositionsDISC1.push(parseFloat(2*-1)); // Z
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // V
 				
-				// vertexCountDISC1 += 3;
-
+				vertexCountDISC1 += 3;
 
 				//WALL
 				worldVertexPositionBuffer = gl.createBuffer();
@@ -777,18 +704,17 @@
 				worldVertexTextureCoordBufferFLOOR.numItems = vertexCountFLOOR;
 
 				//DISC1
-				// worldVertexPositionBufferDISC1 = gl.createBuffer();
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
-				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC1), gl.STATIC_DRAW);
-				// worldVertexPositionBufferDISC1.itemSize = 3;
-				// worldVertexPositionBufferDISC1.numItems = vertexCountDISC1;
+				worldVertexPositionBufferDISC1 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionsDISC1), gl.STATIC_DRAW);
+				worldVertexPositionBufferDISC1.itemSize = 3;
+				worldVertexPositionBufferDISC1.numItems = vertexCountDISC1;
 
-				// worldVertexTextureCoordBufferDISC1 = gl.createBuffer();
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
-				// gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC1), gl.STATIC_DRAW);
-				// worldVertexTextureCoordBufferDISC1.itemSize = 2;
-				// worldVertexTextureCoordBufferDISC1.numItems = vertexCountDISC1;
-
+				worldVertexTextureCoordBufferDISC1 = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoordsDISC1), gl.STATIC_DRAW);
+				worldVertexTextureCoordBufferDISC1.itemSize = 2;
+				worldVertexTextureCoordBufferDISC1.numItems = vertexCountDISC1;
 			}
 			
 			function drawScene() {
@@ -827,7 +753,7 @@
 				}
 				
 				gl.activeTexture(gl.TEXTURE0);
-				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["wall"]);
 				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
@@ -840,28 +766,24 @@
 				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
 
 				//discs
-				// if (worldVertexTextureCoordBufferDISC1 == null || worldVertexPositionBufferDISC1 == null) {
-				// 	return;
-				// }
+				if (worldVertexTextureCoordBufferDISC1 == null || worldVertexPositionBufferDISC1 == null) {
+					return;
+				}
 				
-				// gl.activeTexture(gl.TEXTURE0);
-				// gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
-				// gl.uniform1i(shaderProgram.samplerUniform, 0);
+				gl.activeTexture(gl.TEXTURE0);
+				gl.bindTexture(gl.TEXTURE_2D, textureArray["disc1"]);
+				gl.uniform1i(shaderProgram.samplerUniform, 0);
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
-				// gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBufferDISC1);
+				gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
 
-				// gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
-				// gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
+				gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBufferDISC1);
+				gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBufferDISC1.itemSize, gl.FLOAT, false, 0, 0);
 
-				// setMatrixUniforms();
-				// gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBufferDISC1.numItems);
 
 			}
-
-			var lastTime = 0;
-			// Used to make us "jog" up and down as we move forward.
-			var joggingAngle = 0;
 
 			function animate() {
 				var timeNow = new Date().getTime();
@@ -890,11 +812,9 @@
 							jump.isPerforming = false;
 						}
 					}
-
 				}
 				lastTime = timeNow;
 			}
-
 
 			function tick() {
 				requestAnimFrame(tick);
@@ -902,8 +822,6 @@
 				drawScene();
 				animate();
 			}
-
-
 
 			function webGLStart() {
 				var canvas = document.getElementById("canvas");
@@ -920,11 +838,6 @@
 
 				tick();
 			}
-
-
-		
 		</script>
-
 	</body>
-
 </html>
