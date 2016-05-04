@@ -37,7 +37,6 @@
 			
 			.dude {
 				position: absolute;
-				display: initial;
     			left: 420px;
     			top: 362px;
 				z-index: 0;
@@ -1134,7 +1133,7 @@
 				{
 					currentDisc = "blue";
 					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "initial";
+					document.getElementById("blue").display = "inline";
 					document.getElementById("red").display = "none";
 					document.getElementById("green").display = "none";
 					document.getElementById("yellow").display = "none";
@@ -1146,7 +1145,7 @@
 					currentDisc = "red";
 					document.getElementById("none").display = "none";
 					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "initial";
+					document.getElementById("red").display = "inline";
 					document.getElementById("green").display = "none";
 					document.getElementById("yellow").display = "none";
 					document.getElementById("purple").display = "none";
@@ -1158,7 +1157,7 @@
 					document.getElementById("none").display = "none";
 					document.getElementById("blue").display = "none";
 					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "initial";
+					document.getElementById("green").display = "inline";
 					document.getElementById("yellow").display = "none";
 					document.getElementById("purple").display = "none";
 				}
@@ -1170,7 +1169,7 @@
 					document.getElementById("blue").display = "none";
 					document.getElementById("red").display = "none";
 					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "initial";
+					document.getElementById("yellow").display = "inline";
 					document.getElementById("purple").display = "none";
 				}
 
@@ -1182,7 +1181,7 @@
 					document.getElementById("red").display = "none";
 					document.getElementById("green").display = "none";
 					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "initial";
+					document.getElementById("purple").display = "inline";
 				}
 			}
 
