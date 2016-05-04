@@ -779,8 +779,8 @@
 				vertexPositionsDISC1.push(parseFloat(xPos)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
 				vertexPositionsDISC1.push(parseFloat((zPos*-1)-1)); // Z
-				vertexTextureCoordsFLOOR.push(parseFloat(0.0)); // U
-				vertexTextureCoordsFLOOR.push(parseFloat(1.0)); // V
+				vertexTextureCoordsDISC1.push(parseFloat(0.0)); // U
+				vertexTextureCoordsDISC1.push(parseFloat(1.0)); // V
 				
 				vertexPositionsDISC1.push(parseFloat(xPos)); // X
 				vertexPositionsDISC1.push(parseFloat(0)); // Y
