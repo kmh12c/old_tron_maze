@@ -34,13 +34,6 @@
 				top: 155px;
 				z-index: 0;
 			}
-			.dude {
-				position: absolute;
-				display: none;
-    			left: 420px;
-    			top: 362px;
-				z-index: 0;
-			}
 			
 			.dude {
 				position: absolute;
@@ -84,12 +77,12 @@
 
 		<img src="img/logo.png" alt="logo.png">
 		<img src="img/beta.png" id="beta" alt="beta.png">
-		<img src="img/back_none.png" id="none" class="dude" alt="back.png">
 		<img src="img/back_red.png" id="red" class="dude" alt="back.png">
 		<img src="img/back_yellow.png" id="yellow" class="dude" alt="back.png">
 		<img src="img/back_green.png" id="green" class="dude" alt="back.png">
 		<img src="img/back_blue.png" id="blue" class="dude" alt="back.png">
 		<img src="img/back_purple.png" id="purple" class="dude" alt="back.png">		
+		<img src="img/back_none.png" id="none" class="dude" alt="back.png">
 				
 		<!--http://stackoverflow.com/questions/28300316/simple-background-music-for-website-->
 		<input type="checkbox" name="un_mute" id="un_mute" onclick="aud_play_pause()">
@@ -101,7 +94,7 @@
 			</label>
 
 		<br/><br/>
-		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down.</p>
+		<p>Use the <b>cursor keys</b> to move around, <b>Space Bar</b> to jump, and <b>Page Up</b>/<b>Page Down</b> to look up and down. <b><i>Try to find all 5 discs.</i></b></p>
 		<br/><br/><br/><br/>
 
 		<canvas id="canvas" width="1200" height="580" style:="border: 1px solid #111111;" ></canvas>
