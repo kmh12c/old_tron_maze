@@ -35,11 +35,6 @@
 			// 	document.getElementById("western").play();
 			// }
 			
-			var un_mute = document.getElementById('un_mute');
-
-			un_mute.onclick = function() {
-				alert('toggle player here');
-			};
     	</script>
 	</head>
 
