@@ -1132,56 +1132,56 @@
 				if( (xPos > d1[0] && xPos < (d1[0] + 1)) && (zPos < -d1[1] && zPos > -(d1[1] + 1)) )
 				{
 					currentDisc = "blue";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "inline";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "none";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "inline";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "none";
 				}
 
 				if( (xPos > d2[0] && xPos < (d2[0] + 1)) && (zPos < -d2[1] && zPos > -(d2[1] + 1)) )
 				{
 					currentDisc = "red";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "inline";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "none";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "inline";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "none";
 				}
 
 				if( (xPos > d3[0] && xPos < (d3[0] + 1)) && (zPos < -d3[1] && zPos > -(d3[1] + 1)) )
 				{
 					currentDisc = "green";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "inline";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "none";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "inline";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "none";
 				}
 
 				if( (xPos > d4[0] && xPos < (d4[0] + 1)) && (zPos < -d4[1] && zPos > -(d4[1] + 1)) )
 				{
 					currentDisc = "yellow";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "inline";
-					document.getElementById("purple").display = "none";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "inline";
+					document.getElementById("purple").style.display = "none";
 				}
 
 				if( (xPos > d5[0] && xPos < (d5[0] + 1)) && (zPos < -d5[1] && zPos > -(d5[1] + 1)) )
 				{
 					currentDisc = "purple";
-					document.getElementById("none").display = "none";
-					document.getElementById("blue").display = "none";
-					document.getElementById("red").display = "none";
-					document.getElementById("green").display = "none";
-					document.getElementById("yellow").display = "none";
-					document.getElementById("purple").display = "inline";
+					document.getElementById("none").style.display = "none";
+					document.getElementById("blue").style.display = "none";
+					document.getElementById("red").style.display = "none";
+					document.getElementById("green").style.display = "none";
+					document.getElementById("yellow").style.display = "none";
+					document.getElementById("purple").style.display = "inline";
 				}
 			}
 
