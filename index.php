@@ -45,10 +45,14 @@
     			top: 156px;
 				z-index: -1;
 			}
+
+			p {
+				color: white;
+			}
 			
 		</style>
 	</head>
-	<body onload="webGLStart();">
+	<body onload="webGLStart();" bgcolor="#000000">
 		<audio id="myAudio" autoplay="autoplay">
 			<source src="music/flynn.ogg" type="audio/ogg">
 			<source src="music/flynn.mp3" type="audio/mpeg">
@@ -81,7 +85,8 @@
 			</label>
 
 		<br/><br/>
-		Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.<br/><br/><br/><br/>
+		<p>Use the cursor keys or WASD to run around, <code>Space Bar</code> to jump, and <code>Page Up</code>/<code>Page Down</code> to look up and down.</p>
+		<br/><br/><br/><br/>
 
 		<canvas id="canvas" style="border: none;" width="1200" height="580"></canvas>
 		<div id="loadingtext"></div>
